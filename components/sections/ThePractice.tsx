@@ -1,6 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const disciplines = [
   {
@@ -45,9 +47,180 @@ const disciplines = [
   },
 ];
 
-export default function ThePractice() {
-  const [hovered, setHovered] = useState<string | null>(null);
+interface PracticeCardProps {
+  d: typeof disciplines[0];
+  index: number;
+}
 
+function PracticeCard({ d, index }: PracticeCardProps) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const bgImageRef = useRef<HTMLDivElement>(null);
+  const [hovered, setHovered] = useState(false);
+
+  // GSAP ScrollTrigger scroll-driven zoom transition
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const isMobile = window.innerWidth < 768;
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(bgImageRef.current,
+        { scale: 1.05 },
+        {
+          scale: isMobile ? 1.25 : 1.32,
+          ease: "none",
+          scrollTrigger: {
+            trigger: cardRef.current,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+          }
+        }
+      );
+    }, cardRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <div
+      ref={cardRef}
+      role="listitem"
+      className="practice-card reveal-fade"
+      style={{
+        height: "clamp(180px, 30vh, 360px)",
+        position: "relative",
+        overflow: "hidden",
+        transitionDelay: `${index * 0.08}s`,
+        cursor: "none",
+      }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      data-cursor-label="EXPLORE"
+    >
+      {/* Background image */}
+      <div
+        ref={bgImageRef}
+        className="card-bg absolute inset-0"
+        style={{
+          backgroundImage: `url('${d.img}')`,
+          backgroundSize: "cover",
+          backgroundPosition: d.imgPos,
+          filter: hovered ? "brightness(0.35) saturate(0.85)" : "brightness(0.22) saturate(0.65)",
+          transition: "filter 0.6s",
+          transformStyle: "preserve-3d",
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Color overlay */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background: d.color,
+          opacity: hovered ? 0.35 : 0,
+          transition: "opacity 0.5s",
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Content */}
+      <div
+        className="absolute inset-0 flex items-center justify-between"
+        style={{ padding: "0 clamp(1.5rem, 5vw, 5rem)" }}
+      >
+        {/* Number */}
+        <span
+          className="text-meta"
+          style={{
+            color: hovered ? "var(--c-vermilion)" : "var(--c-smoke)",
+            transition: "color 0.4s",
+            fontSize: "0.55rem",
+          }}
+        >
+          {d.num}
+        </span>
+
+        {/* Title + subtitle */}
+        <div className="flex flex-col items-center text-center flex-1 mx-8">
+          <h3
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "clamp(1.4rem, 3.5vw, 3.2rem)",
+              fontWeight: 300,
+              letterSpacing: "0.1em",
+              color: hovered ? "var(--c-ivory)" : "var(--c-parchment)",
+              transition: "color 0.4s, transform 0.4s",
+              transform: hovered ? "translateY(-4px)" : "translateY(0)",
+            }}
+          >
+            {d.title}
+          </h3>
+          <span
+            className="text-label mt-2"
+            style={{
+              color: hovered ? "var(--c-gold)" : "var(--c-smoke)",
+              transition: "color 0.4s",
+            }}
+          >
+            {d.subtitle}
+          </span>
+          <p
+            className="text-body mt-4"
+            style={{
+              maxWidth: "32rem",
+              fontSize: "0.8rem",
+              opacity: hovered ? 0.85 : 0,
+              transform: hovered ? "translateY(0)" : "translateY(8px)",
+              transition: "opacity 0.5s 0.1s, transform 0.5s 0.1s",
+              color: "var(--c-parchment)",
+            }}
+          >
+            {d.desc}
+          </p>
+        </div>
+
+        {/* Divider line + explore text */}
+        <div
+          style={{
+            opacity: hovered ? 1 : 0,
+            transition: "opacity 0.4s",
+            display: "flex",
+            alignItems: "center",
+            gap: "0.75rem",
+          }}
+          aria-hidden="true"
+        >
+          <span
+            style={{
+              width: "1px",
+              height: "2rem",
+              background: "var(--c-vermilion)",
+              display: "block",
+            }}
+          />
+          <span className="text-meta" style={{ color: "var(--c-vermilion)" }}>
+            EXPLORE
+          </span>
+        </div>
+      </div>
+
+      {/* Bottom border */}
+      <div
+        className="absolute bottom-0 left-0 right-0"
+        style={{
+          height: "1px",
+          background: "rgba(199,154,98,0.08)",
+        }}
+        aria-hidden="true"
+      />
+    </div>
+  );
+}
+
+export default function ThePractice() {
   return (
     <section
       id="practice"
@@ -59,7 +232,7 @@ export default function ThePractice() {
 
       {/* Chapter header */}
       <div className="kalari-container pt-24 pb-6 flex items-center gap-6" aria-hidden="true">
-        <span className="text-meta" style={{ color: "var(--c-smoke)" }}>CHAPTER 03</span>
+        <span className="text-meta" style={{ color: "var(--c-smoke)" }}>CHAPTER 02</span>
         <span className="accent-line" />
       </div>
 
@@ -93,137 +266,7 @@ export default function ThePractice() {
       {/* Discipline grid — large cards stacked */}
       <div className="flex flex-col" role="list">
         {disciplines.map((d, i) => (
-          <div
-            key={d.id}
-            role="listitem"
-            className="practice-card reveal-fade"
-            style={{
-              height: "clamp(180px, 30vh, 360px)",
-              position: "relative",
-              overflow: "hidden",
-              transitionDelay: `${i * 0.08}s`,
-              cursor: "none",
-            }}
-            onMouseEnter={() => setHovered(d.id)}
-            onMouseLeave={() => setHovered(null)}
-            data-cursor-label="EXPLORE"
-          >
-            {/* Background image */}
-            <div
-              className="card-bg absolute inset-0"
-              style={{
-                backgroundImage: `url('${d.img}')`,
-                backgroundSize: "cover",
-                backgroundPosition: d.imgPos,
-                filter: "brightness(0.3)",
-                transform: hovered === d.id ? "scale(1.06)" : "scale(1)",
-                transition: "transform 0.9s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s",
-              }}
-              aria-hidden="true"
-            />
-
-            {/* Color overlay */}
-            <div
-              className="absolute inset-0 transition-opacity duration-600"
-              style={{
-                background: d.color,
-                opacity: hovered === d.id ? 0.4 : 0,
-                transition: "opacity 0.5s",
-              }}
-              aria-hidden="true"
-            />
-
-            {/* Content */}
-            <div
-              className="absolute inset-0 flex items-center justify-between"
-              style={{ padding: "0 clamp(1.5rem, 5vw, 5rem)" }}
-            >
-              {/* Number */}
-              <span
-                className="text-meta"
-                style={{
-                  color: hovered === d.id ? "var(--c-vermilion)" : "var(--c-smoke)",
-                  transition: "color 0.4s",
-                  fontSize: "0.55rem",
-                }}
-              >
-                {d.num}
-              </span>
-
-              {/* Title + subtitle */}
-              <div className="flex flex-col items-center text-center flex-1 mx-8">
-                <h3
-                  style={{
-                    fontFamily: "var(--font-display)",
-                    fontSize: "clamp(1.4rem, 3.5vw, 3.2rem)",
-                    fontWeight: 300,
-                    letterSpacing: "0.1em",
-                    color: hovered === d.id ? "var(--c-ivory)" : "var(--c-parchment)",
-                    transition: "color 0.4s, transform 0.4s",
-                    transform: hovered === d.id ? "translateY(-4px)" : "translateY(0)",
-                  }}
-                >
-                  {d.title}
-                </h3>
-                <span
-                  className="text-label mt-2"
-                  style={{
-                    color: hovered === d.id ? "var(--c-gold)" : "var(--c-smoke)",
-                    transition: "color 0.4s, opacity 0.4s",
-                  }}
-                >
-                  {d.subtitle}
-                </span>
-                <p
-                  className="text-body mt-4"
-                  style={{
-                    maxWidth: "32rem",
-                    fontSize: "0.8rem",
-                    opacity: hovered === d.id ? 0.85 : 0,
-                    transform: hovered === d.id ? "translateY(0)" : "translateY(8px)",
-                    transition: "opacity 0.5s 0.1s, transform 0.5s 0.1s",
-                    color: "var(--c-parchment)",
-                  }}
-                >
-                  {d.desc}
-                </p>
-              </div>
-
-              {/* Divider line + explore text */}
-              <div
-                style={{
-                  opacity: hovered === d.id ? 1 : 0,
-                  transition: "opacity 0.4s",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "0.75rem",
-                }}
-                aria-hidden="true"
-              >
-                <span
-                  style={{
-                    width: "1px",
-                    height: "2rem",
-                    background: "var(--c-vermilion)",
-                    display: "block",
-                  }}
-                />
-                <span className="text-meta" style={{ color: "var(--c-vermilion)" }}>
-                  EXPLORE
-                </span>
-              </div>
-            </div>
-
-            {/* Bottom border */}
-            <div
-              className="absolute bottom-0 left-0 right-0"
-              style={{
-                height: "1px",
-                background: "rgba(199,154,98,0.08)",
-              }}
-              aria-hidden="true"
-            />
-          </div>
+          <PracticeCard key={d.id} d={d} index={i} />
         ))}
       </div>
 

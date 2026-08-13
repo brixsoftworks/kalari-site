@@ -12,7 +12,7 @@ export default function TheArt() {
 
       {/* Chapter header */}
       <div className="kalari-container pt-24 pb-6 flex items-center gap-6" aria-hidden="true">
-        <span className="text-meta" style={{ color: "var(--c-smoke)" }}>CHAPTER 02</span>
+        <span className="text-meta" style={{ color: "var(--c-smoke)" }}>CHAPTER 04</span>
         <span className="accent-line" />
       </div>
 

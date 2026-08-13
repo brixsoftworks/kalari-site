@@ -13,7 +13,7 @@ export default function TheKalari() {
         className="kalari-container pt-24 pb-6 flex items-center gap-6"
         aria-hidden="true"
       >
-        <span className="text-meta" style={{ color: "var(--c-smoke)" }}>CHAPTER 01</span>
+        <span className="text-meta" style={{ color: "var(--c-smoke)" }}>CHAPTER 03</span>
         <span
           className="accent-line"
           style={{ width: "2rem", background: "var(--c-vermilion)" }}

@@ -71,7 +71,7 @@ export default function TheMovement() {
         aria-hidden="true"
       >
         <span className="text-meta" style={{ color: "var(--c-smoke)" }}>
-          CHAPTER 04
+          CHAPTER 05
         </span>
       </div>
 

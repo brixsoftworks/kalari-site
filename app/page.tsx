@@ -40,36 +40,34 @@ export default function HomePage() {
             {/* 01 — Hero */}
             <Hero />
 
-            {/* 01.5 — Weapons Detail (Inverse Parallax Transition) */}
+            {/* 02 — The Practice */}
+            <ThePractice />
+
+            {/* 02.5 — Weapons Detail (Inverse Parallax Transition) */}
             <WeaponsDetail />
 
-            {/* 02 — The Kalari */}
+            {/* 03 — The Kalari */}
             <TheKalari />
 
-            {/* 03 — The Art */}
+            {/* 04 — The Art */}
             <TheArt />
-
-            {/* 04 — The Practice */}
-            <ThePractice />
 
             {/* 05 — The Movement */}
             <TheMovement />
 
             {/* 06 — Training */}
-
-            {/* 07 — Training */}
             <Training />
 
-            {/* 08 — Philosophy */}
+            {/* 07 — Philosophy */}
             <Philosophy />
 
-            {/* 09 — Testimonials */}
+            {/* 08 — Testimonials */}
             <Testimonials />
 
-            {/* 10 — Location */}
+            {/* 09 — Location */}
             <Location />
 
-            {/* 11 — Join */}
+            {/* 10 — Join */}
             <JoinKalari />
           </main>
 
