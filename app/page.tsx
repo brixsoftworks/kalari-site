@@ -17,7 +17,6 @@ import JoinKalari from "@/components/sections/JoinKalari";
 import Footer from "@/components/sections/Footer";
 
 // Client-only components
-const CustomCursor = dynamic(() => import("@/components/ui/CustomCursor"), { ssr: false });
 const SmoothScroll = dynamic(() => import("@/components/ui/SmoothScroll"), { ssr: false });
 const ScrollReveal = dynamic(() => import("@/components/ui/ScrollReveal"), { ssr: false });
 const ScrollProgress = dynamic(() => import("@/components/ui/ScrollProgress"), { ssr: false });
@@ -28,7 +27,6 @@ export default function HomePage() {
     <>
       {/* Global overlays */}
       <GrainOverlay />
-      <CustomCursor />
       <ScrollProgress />
 
       {/* Smooth scroll wrapper */}

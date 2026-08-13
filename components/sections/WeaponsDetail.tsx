@@ -29,6 +29,17 @@ function WeaponSection({
   const layer2Ref = useRef<HTMLDivElement>(null);
   const layer3Ref = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Mobile detection
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -52,36 +63,39 @@ function WeaponSection({
       }
 
       const rect = section.getBoundingClientRect();
-      // Scroll progress relative to this section entering/exiting the screen
       const scrollOffset = window.innerHeight - rect.top;
+      const mobile = window.innerWidth < 768;
 
-      // Apply the alternating inverse animation algorithm
-      // If direction === 1: pans right (X > 0), rotates left (Y < 0)
-      // If direction === -1: pans left (X < 0), rotates right (Y > 0)
-      const cameraX = Math.min(250, Math.max(-250, (scrollOffset - 350) * 0.45 * direction));
-      const cameraRotY = Math.min(15, Math.max(-15, (scrollOffset - 350) * -0.045 * direction));
-      const cameraRotX = Math.min(10, Math.max(-10, (scrollOffset - 350) * 0.015));
+      if (mobile) {
+        // Simplified translation on mobile scroll to avoid glitches
+        if (bgRef.current) {
+          bgRef.current.style.transform = `translate3d(0, 0, 0)`;
+        }
+        if (layer1Ref.current) {
+          const bgScale = 1.02 + Math.max(0, scrollOffset * 0.0002);
+          layer1Ref.current.style.transform = `scale(${bgScale})`;
+        }
+      } else {
+        // 3D Orbital camera pan on desktop
+        const cameraX = Math.min(250, Math.max(-250, (scrollOffset - 350) * 0.45 * direction));
+        const cameraRotY = Math.min(15, Math.max(-15, (scrollOffset - 350) * -0.045 * direction));
+        const cameraRotX = Math.min(10, Math.max(-10, (scrollOffset - 350) * 0.015));
 
-      if (bgRef.current) {
-        bgRef.current.style.transform = `perspective(1200px) rotateX(${cameraRotX}deg) rotateY(${cameraRotY}deg) translate3d(${cameraX}px, 0, 0)`;
-      }
-
-      // Background layer shifts back on Z-axis and zooms slowly in opposite direction
-      if (layer1Ref.current) {
-        const bgScale = 1.05 + Math.max(0, scrollOffset * 0.0003);
-        layer1Ref.current.style.transform = `translate3d(${-cameraX * 0.25}px, 0, -150px) scale(${bgScale})`;
-      }
-
-      // Glow flare sits in middle Z space
-      if (layer2Ref.current) {
-        layer2Ref.current.style.transform = `translate3d(${cameraX * 0.15}px, 0, -30px) scale(1.15)`;
-      }
-
-      // Cutout layer of the weapon
-      if (layer3Ref.current) {
-        const weaponScale = 1.08 + Math.max(0, scrollOffset * 0.0006);
-        const weaponZ = 80 + Math.min(80, scrollOffset * 0.08);
-        layer3Ref.current.style.transform = `translate3d(${-cameraX * 0.45}px, 0, ${weaponZ}px) scale(${weaponScale})`;
+        if (bgRef.current) {
+          bgRef.current.style.transform = `perspective(1200px) rotateX(${cameraRotX}deg) rotateY(${cameraRotY}deg) translate3d(${cameraX}px, 0, 0)`;
+        }
+        if (layer1Ref.current) {
+          const bgScale = 1.05 + Math.max(0, scrollOffset * 0.0003);
+          layer1Ref.current.style.transform = `translate3d(${-cameraX * 0.25}px, 0, -150px) scale(${bgScale})`;
+        }
+        if (layer2Ref.current) {
+          layer2Ref.current.style.transform = `translate3d(${cameraX * 0.15}px, 0, -30px) scale(1.15)`;
+        }
+        if (layer3Ref.current) {
+          const weaponScale = 1.08 + Math.max(0, scrollOffset * 0.0006);
+          const weaponZ = 80 + Math.min(80, scrollOffset * 0.08);
+          layer3Ref.current.style.transform = `translate3d(${-cameraX * 0.45}px, 0, ${weaponZ}px) scale(${weaponScale})`;
+        }
       }
 
       rafId = requestAnimationFrame(updatePosition);
@@ -96,19 +110,19 @@ function WeaponSection({
       ref={sectionRef}
       id={id}
       className="relative w-full overflow-hidden"
-      style={{ height: "70vh", minHeight: "450px", background: "var(--c-void)" }}
+      style={{ height: isMobile ? "55vh" : "70vh", minHeight: "380px", background: "var(--c-void)" }}
     >
       {/* 3D Parallax Container */}
       <div
         ref={bgRef}
         className="absolute inset-0 z-0 transition-transform duration-75 ease-out"
         style={{
-          transformStyle: "preserve-3d",
+          transformStyle: isMobile ? "flat" : "preserve-3d",
           transformOrigin: "center center",
         }}
         aria-hidden="true"
       >
-        {/* Layer 1: Ambient background image (weapons detail, desaturated and blurred) */}
+        {/* Layer 1: Main background image */}
         <div
           ref={layer1Ref}
           className="absolute inset-0"
@@ -116,35 +130,39 @@ function WeaponSection({
             backgroundImage: `url('${imgUrl}')`,
             backgroundSize: "cover",
             backgroundPosition: "center",
-            opacity: 0.25,
-            filter: "blur(6px) brightness(0.4) saturate(0.5)",
-            transformStyle: "preserve-3d",
+            opacity: isMobile ? 0.7 : 0.25,
+            filter: isMobile ? "brightness(0.5)" : "blur(6px) brightness(0.4) saturate(0.5)",
+            transformStyle: isMobile ? "flat" : "preserve-3d",
           }}
         />
 
-        {/* Layer 2: Warm ambient amber light glow layer */}
-        <div
-          ref={layer2Ref}
-          className="absolute inset-0 pointer-events-none opacity-40 mix-blend-color-dodge"
-          style={{
-            background: "radial-gradient(circle at 50% 50%, rgba(201, 76, 46, 0.4) 0%, transparent 60%)",
-            transformStyle: "preserve-3d",
-          }}
-        />
+        {/* Layer 2: Amber light glow (Desktop only) */}
+        {!isMobile && (
+          <div
+            ref={layer2Ref}
+            className="absolute inset-0 pointer-events-none opacity-40 mix-blend-color-dodge"
+            style={{
+              background: "radial-gradient(circle at 50% 50%, rgba(201, 76, 46, 0.4) 0%, transparent 60%)",
+              transformStyle: "preserve-3d",
+            }}
+          />
+        )}
 
-        {/* Layer 3: Main Isolated Weapons Layer (pops forward on Z-axis, zooms faster) */}
-        <div
-          ref={layer3Ref}
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `url('${imgUrl}')`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            opacity: 1,
-            clipPath: clipPath,
-            transformStyle: "preserve-3d",
-          }}
-        />
+        {/* Layer 3: Weapon Cutout (Desktop only) */}
+        {!isMobile && (
+          <div
+            ref={layer3Ref}
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `url('${imgUrl}')`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              opacity: 1,
+              clipPath: clipPath,
+              transformStyle: "preserve-3d",
+            }}
+          />
+        )}
 
         {/* Dark gradient overlays */}
         <div
@@ -162,10 +180,10 @@ function WeaponSection({
       {/* Content Overlay */}
       <div
         className={`absolute inset-0 z-20 flex flex-col justify-center px-6 md:px-24 ${
-          direction === -1 ? "items-end text-right md:pr-32" : "items-start text-left"
+          direction === -1 && !isMobile ? "items-end text-right md:pr-32" : "items-start text-left"
         }`}
       >
-        <div className={`flex items-center gap-4 mb-4 ${direction === -1 ? "flex-row-reverse" : ""}`} aria-hidden="true">
+        <div className={`flex items-center gap-4 mb-4 ${direction === -1 && !isMobile ? "flex-row-reverse" : ""}`} aria-hidden="true">
           <span className="text-meta" style={{ color: "var(--c-smoke)" }}>
             {indexLabel}
           </span>
@@ -178,7 +196,7 @@ function WeaponSection({
         <h3
           style={{
             fontFamily: "var(--font-display)",
-            fontSize: "clamp(2.2rem, 5vw, 4.5rem)",
+            fontSize: "clamp(1.8rem, 4vw, 4.5rem)",
             fontWeight: 300,
             letterSpacing: "-0.01em",
             color: "var(--c-ivory)",
@@ -193,18 +211,18 @@ function WeaponSection({
         </h3>
 
         <p
-          className="text-body mt-6"
+          className="text-body mt-4 md:mt-6"
           style={{
             maxWidth: "24rem",
             color: "var(--c-ash)",
-            fontSize: "0.875rem",
+            fontSize: "0.85rem",
           }}
         >
           {desc}
         </p>
       </div>
 
-      {/* Accent divider lines */}
+      {/* Divider line */}
       <div
         className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-stone-800/40 to-transparent"
         aria-hidden="true"

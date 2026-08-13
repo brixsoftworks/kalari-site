@@ -8,19 +8,27 @@ export default function Hero() {
   const layer2Ref = useRef<HTMLDivElement>(null);
   const layer3Ref = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
-  const metaRef = useRef<HTMLDivElement>(null);
-  const scrollRef = useRef<HTMLDivElement>(null);
   const [loaded, setLoaded] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const scrollYRef = useRef(0);
 
-  // Cinematic entrance sequence
+  // Mobile detection
   useEffect(() => {
-    const timers: ReturnType<typeof setTimeout>[] = [];
-    timers.push(setTimeout(() => setLoaded(true), 200));
-    return () => timers.forEach(clearTimeout);
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // Track scroll position in a ref for fast animation updates
+  // Entrance transition
+  useEffect(() => {
+    const timer = setTimeout(() => setLoaded(true), 200);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Track scroll position in a ref
   useEffect(() => {
     const onScroll = () => {
       scrollYRef.current = window.scrollY;
@@ -29,11 +37,8 @@ export default function Hero() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // 3D Mouse tracking parallax & scroll zoom
+  // 3D Parallax loop
   useEffect(() => {
-    const container = bgRef.current;
-    if (!container) return;
-
     let targetX = 0;
     let targetY = 0;
     let currentX = 0;
@@ -41,6 +46,7 @@ export default function Hero() {
     let rafId: number;
 
     const onMouseMove = (e: MouseEvent) => {
+      if (window.innerWidth < 768) return; // Disable mouse tilt on mobile
       const { clientX, clientY } = e;
       const { innerWidth, innerHeight } = window;
       targetX = (clientX / innerWidth) - 0.5;
@@ -55,38 +61,43 @@ export default function Hero() {
       currentX = lerp(currentX, targetX, 0.08);
       currentY = lerp(currentY, targetY, 0.08);
       const scrollY = scrollYRef.current;
+      const mobile = window.innerWidth < 768;
 
-      // Camera orbital panning driven by scroll
-      const cameraX = -scrollY * 0.5; // Camera moves to the right, shifting world to the left
-      const cameraY = scrollY * 0.12; 
-      const cameraRotY = scrollY * 0.05; // Orbit camera rotation around Y-axis
-      const cameraRotX = scrollY * -0.015;
+      if (mobile) {
+        // Simplified non-glitching translation on mobile scroll
+        if (bgRef.current) {
+          bgRef.current.style.transform = `translate3d(0, ${scrollY * 0.35}px, 0)`;
+        }
+        if (layer1Ref.current) {
+          const bgScale = 1.02 + scrollY * 0.0003;
+          layer1Ref.current.style.transform = `scale(${bgScale})`;
+        }
+      } else {
+        // Full cinematic 3D orbital camera pan on desktop
+        const cameraX = -scrollY * 0.5;
+        const cameraY = scrollY * 0.12;
+        const cameraRotY = scrollY * 0.05;
+        const cameraRotX = scrollY * -0.015;
 
-      const totalRotX = (currentY * -6) + cameraRotX;
-      const totalRotY = (currentX * 6) + cameraRotY;
+        const totalRotX = (currentY * -6) + cameraRotX;
+        const totalRotY = (currentX * 6) + cameraRotY;
 
-      // Apply orbital rotation and translation to the perspective container
-      if (bgRef.current) {
-        bgRef.current.style.transform = `perspective(1200px) rotateX(${totalRotX}deg) rotateY(${totalRotY}deg) translate3d(${cameraX}px, ${cameraY}px, 0)`;
-      }
-
-      // Background layer shifts back on Z-axis and zooms slowly
-      if (layer1Ref.current) {
-        const bgScale = 1.05 + scrollY * 0.0004;
-        layer1Ref.current.style.transform = `translate3d(${currentX * -10}px, ${currentY * -10}px, -150px) scale(${bgScale})`;
-      }
-
-      // Glow flare sits in middle Z space
-      if (layer2Ref.current) {
-        const glowScale = 1.1 + scrollY * 0.0006;
-        layer2Ref.current.style.transform = `translate3d(${currentX * 18}px, ${currentY * 18}px, -30px) scale(${glowScale})`;
-      }
-
-      // Warrior cutout layer pops forward on Z-axis and zooms faster
-      if (layer3Ref.current) {
-        const warriorScale = 1.06 + scrollY * 0.0016;
-        const warriorZ = 100 + Math.min(120, scrollY * 0.18);
-        layer3Ref.current.style.transform = `translate3d(${currentX * 28}px, ${currentY * 28}px, ${warriorZ}px) scale(${warriorScale})`;
+        if (bgRef.current) {
+          bgRef.current.style.transform = `perspective(1200px) rotateX(${totalRotX}deg) rotateY(${totalRotY}deg) translate3d(${cameraX}px, ${cameraY}px, 0)`;
+        }
+        if (layer1Ref.current) {
+          const bgScale = 1.05 + scrollY * 0.0004;
+          layer1Ref.current.style.transform = `translate3d(${currentX * -10}px, ${currentY * -10}px, -150px) scale(${bgScale})`;
+        }
+        if (layer2Ref.current) {
+          const glowScale = 1.1 + scrollY * 0.0006;
+          layer2Ref.current.style.transform = `translate3d(${currentX * 18}px, ${currentY * 18}px, -30px) scale(${glowScale})`;
+        }
+        if (layer3Ref.current) {
+          const warriorScale = 1.06 + scrollY * 0.0016;
+          const warriorZ = 100 + Math.min(120, scrollY * 0.18);
+          layer3Ref.current.style.transform = `translate3d(${currentX * 28}px, ${currentY * 28}px, ${warriorZ}px) scale(${warriorScale})`;
+        }
       }
 
       rafId = requestAnimationFrame(updatePosition);
@@ -112,17 +123,17 @@ export default function Hero() {
       style={{ height: "100svh", minHeight: "600px" }}
       aria-label="Hero — The Art of the Warrior"
     >
-      {/* 3D Parallax Container */}
+      {/* 3D/Parallax Background Wrapper */}
       <div
         ref={bgRef}
         className="absolute inset-0 z-0 transition-transform duration-75 ease-out"
         style={{
-          transformStyle: "preserve-3d",
+          transformStyle: isMobile ? "flat" : "preserve-3d",
           transformOrigin: "center center",
         }}
         aria-hidden="true"
       >
-        {/* Layer 1: Ambient background scene (darkened & blurred to make warrior pop) */}
+        {/* Layer 1: Ambient background image */}
         <div
           ref={layer1Ref}
           className="absolute inset-0"
@@ -130,38 +141,41 @@ export default function Hero() {
             backgroundImage: "url('/images/movement.jpg')",
             backgroundSize: "cover",
             backgroundPosition: "center 30%",
-            opacity: loaded ? 0.35 : 0,
-            filter: "blur(6px) brightness(0.6) saturate(0.8)",
+            opacity: loaded ? (isMobile ? 1 : 0.35) : 0,
+            filter: isMobile ? "none" : "blur(6px) brightness(0.6) saturate(0.8)",
             transition: "opacity 2.4s cubic-bezier(0.16, 1, 0.3, 1)",
-            transformStyle: "preserve-3d",
+            transformStyle: isMobile ? "flat" : "preserve-3d",
           }}
         />
 
-        {/* Layer 2: Warm ambient firelight glow layer */}
-        <div
-          ref={layer2Ref}
-          className="absolute inset-0 pointer-events-none opacity-40 mix-blend-color-dodge"
-          style={{
-            background: "radial-gradient(circle at 50% 50%, rgba(201, 76, 46, 0.5) 0%, transparent 60%)",
-            transformStyle: "preserve-3d",
-          }}
-        />
+        {/* Layer 2: Firelight glow (Desktop only) */}
+        {!isMobile && (
+          <div
+            ref={layer2Ref}
+            className="absolute inset-0 pointer-events-none opacity-40 mix-blend-color-dodge"
+            style={{
+              background: "radial-gradient(circle at 50% 50%, rgba(201, 76, 46, 0.5) 0%, transparent 60%)",
+              transformStyle: "preserve-3d",
+            }}
+          />
+        )}
 
-        {/* Layer 3: Dynamic Warrior Cutout (perfectly overlays center portion, zooms forward in 3D space) */}
-        <div
-          ref={layer3Ref}
-          className="absolute inset-0"
-          style={{
-            backgroundImage: "url('/images/movement.jpg')",
-            backgroundSize: "cover",
-            backgroundPosition: "center 30%",
-            opacity: loaded ? 1 : 0,
-            // Clip-path polygon isolating the central leaping warrior silhouette
-            clipPath: "polygon(22% 10%, 78% 10%, 85% 90%, 15% 90%)",
-            transition: "opacity 2.4s cubic-bezier(0.16, 1, 0.3, 1)",
-            transformStyle: "preserve-3d",
-          }}
-        />
+        {/* Layer 3: Warrior Cutout (Desktop only) */}
+        {!isMobile && (
+          <div
+            ref={layer3Ref}
+            className="absolute inset-0"
+            style={{
+              backgroundImage: "url('/images/movement.jpg')",
+              backgroundSize: "cover",
+              backgroundPosition: "center 30%",
+              opacity: loaded ? 1 : 0,
+              clipPath: "polygon(22% 10%, 78% 10%, 85% 90%, 15% 90%)",
+              transition: "opacity 2.4s cubic-bezier(0.16, 1, 0.3, 1)",
+              transformStyle: "preserve-3d",
+            }}
+          />
+        )}
 
         {/* Dark gradient overlays */}
         <div
@@ -209,7 +223,6 @@ export default function Hero() {
       <div
         className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center px-6"
       >
-        {/* Small eyebrow */}
         <div
           style={{
             opacity: loaded ? 1 : 0,
@@ -222,7 +235,6 @@ export default function Hero() {
           </span>
         </div>
 
-        {/* Main heading */}
         <div style={{ overflow: "hidden" }}>
           <h1
             ref={headingRef}
@@ -241,7 +253,6 @@ export default function Hero() {
           </h1>
         </div>
 
-        {/* Subtitle */}
         <div
           style={{
             marginTop: "clamp(1.5rem, 4vh, 3rem)",
@@ -292,7 +303,7 @@ export default function Hero() {
           onClick={scrollDown}
           className="flex flex-col items-center gap-2"
           aria-label="Scroll to enter"
-          style={{ cursor: "none", background: "none", border: "none" }}
+          style={{ background: "none", border: "none" }}
         >
           <span className="text-meta" style={{ color: "var(--c-smoke)" }}>
             SCROLL TO ENTER

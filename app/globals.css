@@ -42,21 +42,6 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
-body {
-  background: var(--c-void);
-  color: var(--c-ivory);
-  font-family: var(--font-body);
-  font-size: 16px;
-  line-height: 1.6;
-  overflow-x: hidden;
-  cursor: none;
-}
-
-/* ─── Custom Scrollbar ──────────────────────────────────────── */
-::-webkit-scrollbar { width: 2px; }
-::-webkit-scrollbar-track { background: var(--c-void); }
-::-webkit-scrollbar-thumb { background: var(--c-fire); border-radius: 1px; }
-
 /* ─── Typography ────────────────────────────────────────────── */
 .font-display { font-family: var(--font-display); }
 .font-body    { font-family: var(--font-body); }
