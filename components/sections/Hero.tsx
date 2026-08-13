@@ -53,29 +53,42 @@ export default function Hero() {
       const isMobile = window.innerWidth < 768;
 
       if (isMobile) {
-        // 1. Mobile Layout & Zoom
+        // 1. Mobile 3D Parallax & Scroll Zoom (Dual-Layer depth pop)
         if (bgRef.current) {
+          // Camera pan translation on scroll
           bgRef.current.style.transform = `translate3d(0, ${scrollY * 0.35}px, 0)`;
         }
+
+        // Background: slower zoom
         if (layer1Ref.current) {
-          const bgScale = 1.05 + scrollY * 0.0012; // Beautiful visible zoom on mobile scroll
+          const bgScale = 1.04 + scrollY * 0.0006;
           layer1Ref.current.style.transform = `scale(${bgScale})`;
-          layer1Ref.current.style.opacity = "1";
-          layer1Ref.current.style.filter = "none";
+          layer1Ref.current.style.opacity = "0.35";
+          layer1Ref.current.style.filter = "blur(5px) brightness(0.55) saturate(0.8)";
         }
+
+        // Glow: ambient shift
         if (layer2Ref.current) {
-          layer2Ref.current.style.display = "none";
+          layer2Ref.current.style.display = "block";
+          const glowScale = 1.08 + scrollY * 0.0008;
+          layer2Ref.current.style.transform = `scale(${glowScale})`;
         }
+
+        // Warrior: faster zoom (creates the dynamic 3D separation effect)
         if (layer3Ref.current) {
-          layer3Ref.current.style.display = "none";
+          layer3Ref.current.style.display = "block";
+          layer3Ref.current.style.clipPath = "ellipse(44% 48% at 50% 50%)"; // Oval mask to fit vertical mobile screens
+          const warriorScale = 1.06 + scrollY * 0.0018; // Zooms significantly faster than the background
+          layer3Ref.current.style.transform = `scale(${warriorScale})`;
         }
       } else {
-        // 2. Desktop 3D Orbital Camera
+        // 2. Desktop 3D Orbital Camera Pan & Zoom
         if (layer2Ref.current) {
           layer2Ref.current.style.display = "block";
         }
         if (layer3Ref.current) {
           layer3Ref.current.style.display = "block";
+          layer3Ref.current.style.clipPath = "polygon(22% 10%, 78% 10%, 85% 90%, 15% 90%)";
         }
 
         const cameraX = -scrollY * 0.5;
