@@ -168,7 +168,7 @@ export default function TheMovement() {
         aria-hidden="true"
       >
         <span className="text-meta" style={{ color: "var(--c-smoke)" }}>
-          05 / 09
+          05 / 08
         </span>
       </div>
     </section>

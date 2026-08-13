@@ -16,10 +16,10 @@
   --c-flame:      #C94C2E;
   --c-gold:       #C79A62;
   --c-antique:    #A87A45;
-  --c-ivory:      #E8DDCB;
-  --c-parchment:  #D4C4A8;
-  --c-ash:        #8A7A6A;
-  --c-smoke:      #5A4E44;
+  --c-ivory:      #FAF6EE; /* Brighter premium warm white for headings */
+  --c-parchment:  #E8DEC9; /* High-contrast warm parchment cream for body copy */
+  --c-ash:        #BAAE9E; /* Legible taupe for meta labels */
+  --c-smoke:      #8F8272; /* Readable stone gray for secondary details */
 
   --ease-out:     cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out:  cubic-bezier(0.77, 0, 0.175, 1);

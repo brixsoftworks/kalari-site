@@ -8,7 +8,6 @@ import TheKalari from "@/components/sections/TheKalari";
 import TheArt from "@/components/sections/TheArt";
 import ThePractice from "@/components/sections/ThePractice";
 import TheMovement from "@/components/sections/TheMovement";
-import TheGuru from "@/components/sections/TheGuru";
 import Training from "@/components/sections/Training";
 import Philosophy from "@/components/sections/Philosophy";
 import Testimonials from "@/components/sections/Testimonials";
@@ -56,8 +55,7 @@ export default function HomePage() {
             {/* 05 — The Movement */}
             <TheMovement />
 
-            {/* 06 — The Guru */}
-            <TheGuru />
+            {/* 06 — Training */}
 
             {/* 07 — Training */}
             <Training />

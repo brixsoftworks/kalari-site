@@ -331,7 +331,7 @@ export default function Hero() {
         aria-hidden="true"
       >
         <span className="text-meta" style={{ color: "var(--c-smoke)" }}>
-          01 / 09
+          01 / 08
         </span>
       </div>
 

@@ -20,7 +20,6 @@ export default function Navigation() {
     { href: "#kalari", label: "The Kalari" },
     { href: "#art", label: "The Art" },
     { href: "#practice", label: "Training" },
-    { href: "#guru", label: "The Guru" },
     { href: "#join", label: "Join" },
   ];
 

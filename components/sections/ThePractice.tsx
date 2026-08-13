@@ -4,31 +4,21 @@ import { useState } from "react";
 
 const disciplines = [
   {
-    id: "meippayattu",
-    title: "MEIPPAYATTU",
+    id: "meithari",
+    title: "MEITHARI",
     subtitle: "Body Conditioning",
-    desc: "The foundation. Rigorous exercises to awaken the body — flexibility, strength, and body memory. The warrior begins here.",
+    desc: "The foundation. Rigorous body conditioning exercises — flexibility, strength, balance, and agility. The warrior's journey begins here.",
     num: "01",
     color: "rgba(142,36,27,0.8)",
     img: "/images/hero.jpg",
     imgPos: "center 20%",
   },
   {
-    id: "vadivu",
-    title: "VADIVU",
-    subtitle: "Animal Postures",
-    desc: "Eight stances inspired by nature — elephant, horse, cat, serpent. Each posture channels a different force and awareness.",
-    num: "02",
-    color: "rgba(66,26,22,0.8)",
-    img: "/images/movement.jpg",
-    imgPos: "center",
-  },
-  {
     id: "kolthari",
     title: "KOLTHARI",
     subtitle: "Wooden Weapons",
     desc: "Training begins with wood. The otta, cheruvadi, and long staff teach distance, rhythm, and the geometry of combat.",
-    num: "03",
+    num: "02",
     color: "rgba(52,28,24,0.85)",
     img: "/images/training.jpg",
     imgPos: "center",
@@ -38,7 +28,7 @@ const disciplines = [
     title: "ANGATHARI",
     subtitle: "Metal Weapons",
     desc: "The knife, sword, shield, and the legendary urumi — the whip-sword. Metal reveals the warrior's precision and courage.",
-    num: "04",
+    num: "03",
     color: "rgba(107,31,24,0.8)",
     img: "/images/weapons.jpg",
     imgPos: "center",
@@ -47,8 +37,8 @@ const disciplines = [
     id: "verumkai",
     title: "VERUMKAI",
     subtitle: "Unarmed Combat",
-    desc: "Beyond weapons — the bare body becomes the art. Locks, throws, pressure points. Pure martial intelligence.",
-    num: "05",
+    desc: "Beyond weapons — the bare body becomes the art. Locks, strikes, throws, and marmas (vital points). Pure martial intelligence.",
+    num: "04",
     color: "rgba(36,24,21,0.85)",
     img: "/images/interior.jpg",
     imgPos: "center",
@@ -93,7 +83,7 @@ export default function ThePractice() {
               className="text-body"
               style={{ color: "var(--c-parchment)", opacity: 0.7 }}
             >
-              Five disciplines of the warrior path. Each a door into a deeper
+              Four disciplines of the warrior path. Each a door into a deeper
               understanding of body and art.
             </p>
           </div>
@@ -241,7 +231,7 @@ export default function ThePractice() {
         <div className="flex items-center gap-4">
           <span className="accent-line" style={{ width: "1.5rem" }} />
           <span className="text-meta" style={{ color: "var(--c-smoke)" }}>
-            FIVE PATHS · ONE TRADITION
+            FOUR PATHS · ONE TRADITION
           </span>
         </div>
       </div>

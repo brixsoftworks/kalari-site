@@ -8,10 +8,9 @@ const sections = [
   { id: "art", label: "03" },
   { id: "practice", label: "04" },
   { id: "movement", label: "05" },
-  { id: "guru", label: "06" },
-  { id: "training", label: "07" },
-  { id: "philosophy", label: "08" },
-  { id: "join", label: "09" },
+  { id: "training", label: "06" },
+  { id: "philosophy", label: "07" },
+  { id: "join", label: "08" },
 ];
 
 export default function ScrollProgress() {
