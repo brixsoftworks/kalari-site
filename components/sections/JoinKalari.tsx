@@ -172,7 +172,7 @@ export default function JoinKalari() {
                     <span
                       style={{
                         fontFamily: "var(--font-body)",
-                        fontSize: "0.55rem",
+                        fontSize: "0.85rem",
                         letterSpacing: "0.05em",
                         color: step > i ? "var(--c-void)" : step === i ? "var(--c-gold)" : "rgba(232,221,203,0.4)",
                       }}
@@ -377,7 +377,7 @@ export default function JoinKalari() {
                         <span
                           style={{
                             fontFamily: "var(--font-body)",
-                            fontSize: "0.875rem",
+                            fontSize: "1.0rem",
                             color: "var(--c-ivory)",
                             textAlign: "right",
                           }}
@@ -404,7 +404,7 @@ export default function JoinKalari() {
                       border: "1px solid rgba(232,221,203,0.2)",
                       color: "rgba(232,221,203,0.6)",
                       fontFamily: "var(--font-body)",
-                      fontSize: "0.65rem",
+                      fontSize: "0.85rem",
                       letterSpacing: "0.2em",
                       textTransform: "uppercase",
                       padding: "1rem 1.75rem",
@@ -438,7 +438,7 @@ export default function JoinKalari() {
                       border: "1px solid var(--c-gold)",
                       color: "var(--c-void)",
                       fontFamily: "var(--font-body)",
-                      fontSize: "0.65rem",
+                      fontSize: "0.85rem",
                       letterSpacing: "0.2em",
                       textTransform: "uppercase",
                       padding: "1rem 2.5rem",
@@ -466,7 +466,7 @@ export default function JoinKalari() {
                       border: "1px solid var(--c-gold)",
                       color: "var(--c-void)",
                       fontFamily: "var(--font-body)",
-                      fontSize: "0.65rem",
+                      fontSize: "0.85rem",
                       letterSpacing: "0.25em",
                       textTransform: "uppercase",
                       padding: "1.25rem 3rem",

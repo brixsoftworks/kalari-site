@@ -108,7 +108,7 @@ function PracticeCard({ d, index }: PracticeCardProps) {
           backgroundImage: `url('${d.img}')`,
           backgroundSize: "cover",
           backgroundPosition: d.imgPos,
-          filter: hovered ? "brightness(0.35) saturate(0.85)" : "brightness(0.22) saturate(0.65)",
+          filter: hovered ? "brightness(0.78) saturate(1.0)" : "brightness(0.58) saturate(0.85)", // Significantly brighter images
           transition: "filter 0.6s",
           transformStyle: "preserve-3d",
         }}
@@ -120,7 +120,7 @@ function PracticeCard({ d, index }: PracticeCardProps) {
         className="absolute inset-0"
         style={{
           background: d.color,
-          opacity: hovered ? 0.35 : 0,
+          opacity: hovered ? 0.35 : 0.1, // Ambient glow overlay for readability
           transition: "opacity 0.5s",
         }}
         aria-hidden="true"
@@ -135,9 +135,9 @@ function PracticeCard({ d, index }: PracticeCardProps) {
         <span
           className="text-meta"
           style={{
-            color: hovered ? "var(--c-vermilion)" : "var(--c-smoke)",
+            color: hovered ? "var(--c-vermilion)" : "var(--c-gold)",
             transition: "color 0.4s",
-            fontSize: "0.55rem",
+            fontSize: "0.95rem", // Increased from 0.55rem
           }}
         >
           {d.num}
@@ -154,6 +154,7 @@ function PracticeCard({ d, index }: PracticeCardProps) {
               color: hovered ? "var(--c-ivory)" : "var(--c-parchment)",
               transition: "color 0.4s, transform 0.4s",
               transform: hovered ? "translateY(-4px)" : "translateY(0)",
+              textShadow: "0 2px 8px rgba(10,9,8,0.7)", // Shadow to keep text crisp
             }}
           >
             {d.title}
@@ -161,7 +162,7 @@ function PracticeCard({ d, index }: PracticeCardProps) {
           <span
             className="text-label mt-2"
             style={{
-              color: hovered ? "var(--c-gold)" : "var(--c-smoke)",
+              color: hovered ? "var(--c-gold)" : "var(--c-ash)",
               transition: "color 0.4s",
             }}
           >
@@ -171,11 +172,12 @@ function PracticeCard({ d, index }: PracticeCardProps) {
             className="text-body mt-4"
             style={{
               maxWidth: "32rem",
-              fontSize: "0.8rem",
-              opacity: hovered ? 0.85 : 0,
+              fontSize: "0.95rem", // Increased from 0.8rem
+              opacity: hovered ? 0.9 : 0,
               transform: hovered ? "translateY(0)" : "translateY(8px)",
               transition: "opacity 0.5s 0.1s, transform 0.5s 0.1s",
               color: "var(--c-parchment)",
+              textShadow: "0 2px 6px rgba(10,9,8,0.8)",
             }}
           >
             {d.desc}

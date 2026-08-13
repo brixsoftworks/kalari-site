@@ -121,7 +121,7 @@ export default function TheKalari() {
             <span className="accent-line mb-4" />
             <p
               className="text-body"
-              style={{ color: "var(--c-parchment)", opacity: 0.65, fontSize: "0.85rem" }}
+              style={{ color: "var(--c-parchment)", opacity: 0.85, fontSize: "1.0rem" }}
             >
               Built facing east, aligned to the elements. The kalari is divided
               into sacred zones — each carrying specific meaning. The earth

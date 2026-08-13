@@ -142,8 +142,8 @@ export default function TheMovement() {
             className="text-body"
             style={{
               color: "var(--c-parchment)",
-              opacity: 0.65,
-              fontSize: "0.875rem",
+              opacity: 0.85,
+              fontSize: "1.05rem",
             }}
           >
             Every step is intentional. Every breath is placed. Every movement

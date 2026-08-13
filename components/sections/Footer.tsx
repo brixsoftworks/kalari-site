@@ -86,7 +86,7 @@ export default function Footer() {
                 border: "1px solid var(--c-gold)",
                 color: "var(--c-gold)",
                 fontFamily: "var(--font-body)",
-                fontSize: "0.65rem",
+                fontSize: "0.85rem",
                 letterSpacing: "0.3em",
                 textTransform: "uppercase",
                 padding: "1.25rem 3.5rem",

@@ -66,7 +66,7 @@ export default function Location() {
                     <>
                       Monday – Saturday<br />
                       05:30 – 09:00 &nbsp;/&nbsp; 16:00 – 19:00<br />
-                      <span style={{ color: "var(--c-smoke)", fontSize: "0.75rem" }}>
+                      <span style={{ color: "var(--c-smoke)", fontSize: "0.9rem" }}>
                         Sunday: Rest
                       </span>
                     </>
@@ -135,7 +135,7 @@ export default function Location() {
                   alignItems: "center",
                   gap: "0.75rem",
                   fontFamily: "var(--font-body)",
-                  fontSize: "0.65rem",
+                  fontSize: "0.85rem",
                   letterSpacing: "0.2em",
                   textTransform: "uppercase",
                   color: "var(--c-gold)",

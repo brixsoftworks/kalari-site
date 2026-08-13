@@ -117,7 +117,7 @@ export default function Training() {
                   <span
                     style={{
                       fontFamily: "var(--font-body)",
-                      fontSize: "0.6rem",
+                      fontSize: "0.8rem",
                       letterSpacing: "0.2em",
                       color: "var(--c-vermilion)",
                       textTransform: "uppercase",
@@ -145,7 +145,7 @@ export default function Training() {
                   </h3>
                   <p
                     className="text-body"
-                    style={{ color: "var(--c-ash)", fontSize: "0.8125rem", opacity: 0.85 }}
+                    style={{ color: "var(--c-parchment)", fontSize: "0.95rem" }}
                   >
                     {p.desc}
                   </p>
@@ -165,7 +165,7 @@ export default function Training() {
                       <span
                         style={{
                           fontFamily: "var(--font-body)",
-                          fontSize: "0.75rem",
+                          fontSize: "0.85rem",
                           color: "var(--c-parchment)",
                           letterSpacing: "0.05em",
                         }}
@@ -188,7 +188,7 @@ export default function Training() {
                       border: "1px solid rgba(199,154,98,0.3)",
                       color: "var(--c-gold)",
                       fontFamily: "var(--font-body)",
-                      fontSize: "0.55rem",
+                      fontSize: "0.75rem",
                       letterSpacing: "0.2em",
                       textTransform: "uppercase",
                       padding: "0.6rem 0.9rem",

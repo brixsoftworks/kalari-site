@@ -246,7 +246,7 @@ export default function Hero() {
         >
           <p
             className="text-body"
-            style={{ color: "var(--c-parchment)", opacity: 0.75, fontSize: "0.875rem" }}
+            style={{ color: "var(--c-parchment)", opacity: 0.8, fontSize: "1.05rem" }}
           >
             AN ANCIENT MARTIAL TRADITION FROM THE LAND OF KERALA
           </p>

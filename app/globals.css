@@ -72,7 +72,7 @@ html {
 
 .text-meta {
   font-family: var(--font-body);
-  font-size: 0.625rem;
+  font-size: 0.8rem; /* Increased from 0.625rem for readability */
   font-weight: 500;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -81,7 +81,7 @@ html {
 
 .text-label {
   font-family: var(--font-body);
-  font-size: 0.75rem;
+  font-size: 0.9rem; /* Increased from 0.75rem for readability */
   font-weight: 400;
   letter-spacing: 0.15em;
   text-transform: uppercase;

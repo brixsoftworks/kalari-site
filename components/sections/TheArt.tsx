@@ -103,7 +103,7 @@ export default function TheArt() {
                   </span>
                   <p
                     className="text-body"
-                    style={{ color: "var(--c-ash)", fontSize: "0.8125rem" }}
+                    style={{ color: "var(--c-parchment)", fontSize: "1.0rem" }}
                   >
                     {item.desc}
                   </p>

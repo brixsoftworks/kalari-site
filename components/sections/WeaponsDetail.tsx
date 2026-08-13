@@ -221,8 +221,8 @@ function WeaponSection({
           className="text-body mt-4 md:mt-6"
           style={{
             maxWidth: "24rem",
-            color: "var(--c-ash)",
-            fontSize: "0.85rem",
+            color: "var(--c-parchment)",
+            fontSize: "1.0rem",
           }}
         >
           {desc}
