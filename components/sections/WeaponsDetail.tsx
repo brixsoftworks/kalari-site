@@ -10,7 +10,7 @@ interface WeaponSectionProps {
   accentTitle: string;
   desc: string;
   imgUrl: string;
-  direction: 1 | -1; // 1 = shifts right/rotates left, -1 = shifts left/rotates right
+  direction: 1 | -1;
   indexLabel: string;
   clipPath: string;
 }
@@ -125,10 +125,10 @@ function WeaponSection({
       className="relative w-full overflow-hidden"
       style={{ height: "70vh", minHeight: "380px", background: "var(--c-void)" }}
     >
-      {/* Parallax Container */}
+      {/* Parallax Container (Bleed margins applied to cover gaps during pan/tilt shifts) */}
       <div
         ref={bgRef}
-        className="absolute inset-0 z-0 transition-transform duration-75 ease-out"
+        className="absolute transition-transform duration-75 ease-out weapon-container-3d"
         style={{
           transformStyle: "preserve-3d",
           transformOrigin: "center center",
@@ -235,9 +235,17 @@ function WeaponSection({
         aria-hidden="true"
       />
 
-      {/* Responsive adjustments styling */}
+      {/* Responsive adjustments & Bleed styling */}
       <style jsx>{`
+        .weapon-container-3d {
+          inset: -15% -25%; /* 15% vertical and 25% horizontal bleed to fully fill gap during large panning translations */
+        }
         @media (max-width: 767px) {
+          .weapon-container-3d {
+            inset: 0% !important; /* Reset bleed on mobile */
+            width: 100%;
+            height: 100%;
+          }
           .weapon-bg-layer {
             filter: brightness(0.5) !important;
             opacity: 0.75 !important;

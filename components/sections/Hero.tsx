@@ -82,19 +82,31 @@ export default function Hero() {
     const updatePosition = () => {
       currentX = lerp(currentX, targetX, 0.08);
       currentY = lerp(currentY, targetY, 0.08);
+      const scrollY = window.scrollY;
 
-      // Desktop interactive tilt
+      // Camera orbital panning driven by scroll
+      const cameraX = -scrollY * 0.45; // Camera moves to the right, shifting world to the left
+      const cameraY = scrollY * 0.12; 
+      const cameraRotY = scrollY * 0.045; // Orbit camera rotation around Y-axis
+      const cameraRotX = scrollY * -0.012;
+
+      const totalRotX = (currentY * -6) + cameraRotX;
+      const totalRotY = (currentX * 6) + cameraRotY;
+
+      // Apply orbital rotation and translation to the perspective container
       if (bgRef.current) {
-        bgRef.current.style.transform = `perspective(1200px) rotateX(${currentY * -6}deg) rotateY(${currentX * 6}deg)`;
+        bgRef.current.style.transform = `perspective(1200px) rotateX(${totalRotX}deg) rotateY(${totalRotY}deg) translate3d(${cameraX}px, ${cameraY}px, 0)`;
       }
       if (layer1Ref.current) {
-        layer1Ref.current.style.transform = `translate3d(${currentX * -12}px, ${currentY * -12}px, -100px)`;
+        // Multi-layered depth shifts
+        layer1Ref.current.style.transform = `translate3d(${currentX * -15}px, ${currentY * -15}px, -150px)`;
       }
       if (layer2Ref.current) {
-        layer2Ref.current.style.transform = `translate3d(${currentX * 18}px, ${currentY * 18}px, -20px)`;
+        layer2Ref.current.style.transform = `translate3d(${currentX * 18}px, ${currentY * 18}px, -30px)`;
       }
       if (layer3Ref.current) {
-        layer3Ref.current.style.transform = `translate3d(${currentX * 28}px, ${currentY * 28}px, 80px)`;
+        const warriorZ = 100 + Math.min(100, scrollY * 0.15);
+        layer3Ref.current.style.transform = `translate3d(${currentX * 28}px, ${currentY * 28}px, ${warriorZ}px)`;
       }
 
       rafId = requestAnimationFrame(updatePosition);
@@ -118,20 +130,20 @@ export default function Hero() {
       ref={containerRef}
       id="hero"
       className="relative w-full overflow-hidden"
-      style={{ height: "100svh", minHeight: "600px" }}
+      style={{ height: "100svh", minHeight: "600px", background: "var(--c-void)" }}
       aria-label="Hero — The Art of the Warrior"
     >
-      {/* 3D Parallax Container */}
+      {/* 3D Parallax Container (Bleed margins applied via styling to prevent edges from rotating/translating into view) */}
       <div
         ref={bgRef}
-        className="absolute inset-0 z-0 transition-transform duration-75 ease-out"
+        className="absolute transition-transform duration-75 ease-out hero-container-3d"
         style={{
           transformStyle: "preserve-3d",
           transformOrigin: "center center",
         }}
         aria-hidden="true"
       >
-        {/* Layer 1: Main background image (Full bleed on mobile, darkened on desktop) */}
+        {/* Layer 1: Main background image */}
         <div
           ref={layer1Ref}
           className="absolute inset-0 hero-bg-layer"
@@ -145,7 +157,7 @@ export default function Hero() {
           }}
         />
 
-        {/* Layer 2: Warm firelight glow (Desktop only via CSS media queries) */}
+        {/* Layer 2: Warm firelight glow (Desktop only) */}
         <div
           ref={layer2Ref}
           className="absolute inset-0 pointer-events-none opacity-40 mix-blend-color-dodge hidden md:block"
@@ -155,7 +167,7 @@ export default function Hero() {
           }}
         />
 
-        {/* Layer 3: Dynamic Warrior Cutout (Desktop only via CSS media queries) */}
+        {/* Layer 3: Dynamic Warrior Cutout (Desktop only) */}
         <div
           ref={layer3Ref}
           className="absolute inset-0 hidden md:block"
@@ -330,9 +342,17 @@ export default function Hero() {
         style={{ height: "1px", background: "rgba(181,58,37,0.2)" }}
       />
 
-      {/* Responsive adjustments styling */}
+      {/* Responsive adjustments & Bleed styling */}
       <style jsx>{`
+        .hero-container-3d {
+          inset: -15% -20%; /* 15% vertical and 20% horizontal bleed to fully fill gaps during pans/tilts */
+        }
         @media (max-width: 767px) {
+          .hero-container-3d {
+            inset: 0% !important; /* Reset bleed on mobile */
+            width: 100%;
+            height: 100%;
+          }
           .hero-bg-layer {
             filter: none !important;
             opacity: 1 !important;
