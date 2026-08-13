@@ -1,6 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 interface WeaponSectionProps {
   id: string;
@@ -28,74 +30,85 @@ function WeaponSection({
   const layer1Ref = useRef<HTMLDivElement>(null);
   const layer2Ref = useRef<HTMLDivElement>(null);
   const layer3Ref = useRef<HTMLDivElement>(null);
-  const [inView, setInView] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
 
-  // Mobile detection
+  // GSAP ScrollTrigger for device-agnostic scroll zoom
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
+    if (typeof window === "undefined") return;
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const isMobile = window.innerWidth < 768;
+
+    const ctx = gsap.context(() => {
+      // Zoom background layer
+      gsap.fromTo(layer1Ref.current, 
+        { scale: 1.05 },
+        {
+          scale: isMobile ? 1.25 : 1.3,
+          ease: "none",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+          }
+        }
+      );
+
+      if (!isMobile) {
+        // Zoom cutout faster on desktop for 3D parallax
+        gsap.fromTo(layer3Ref.current,
+          { scale: 1.08 },
+          {
+            scale: 1.35,
+            ease: "none",
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true,
+            }
+          }
+        );
+      }
+    }, sectionRef);
+
+    return () => ctx.revert();
   }, []);
 
+  // Desktop 3D camera pan animation on scroll
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setInView(entry.isIntersecting);
-      },
-      { threshold: 0.05, rootMargin: "100px 0px" }
-    );
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
+    if (typeof window === "undefined" || window.innerWidth < 768) return;
 
-  useEffect(() => {
     let rafId: number;
 
     const updatePosition = () => {
       const section = sectionRef.current;
-      if (!section || !inView) {
+      if (!section) {
         rafId = requestAnimationFrame(updatePosition);
         return;
       }
 
       const rect = section.getBoundingClientRect();
       const scrollOffset = window.innerHeight - rect.top;
-      const mobile = window.innerWidth < 768;
 
-      if (mobile) {
-        // Simplified translation on mobile scroll to avoid glitches
-        if (bgRef.current) {
-          bgRef.current.style.transform = `translate3d(0, 0, 0)`;
-        }
-        if (layer1Ref.current) {
-          const bgScale = 1.02 + Math.max(0, scrollOffset * 0.0002);
-          layer1Ref.current.style.transform = `scale(${bgScale})`;
-        }
-      } else {
-        // 3D Orbital camera pan on desktop
-        const cameraX = Math.min(250, Math.max(-250, (scrollOffset - 350) * 0.45 * direction));
-        const cameraRotY = Math.min(15, Math.max(-15, (scrollOffset - 350) * -0.045 * direction));
-        const cameraRotX = Math.min(10, Math.max(-10, (scrollOffset - 350) * 0.015));
+      // 3D Orbital camera pan on desktop
+      const cameraX = Math.min(250, Math.max(-250, (scrollOffset - 350) * 0.45 * direction));
+      const cameraRotY = Math.min(15, Math.max(-15, (scrollOffset - 350) * -0.045 * direction));
+      const cameraRotX = Math.min(10, Math.max(-10, (scrollOffset - 350) * 0.015));
 
-        if (bgRef.current) {
-          bgRef.current.style.transform = `perspective(1200px) rotateX(${cameraRotX}deg) rotateY(${cameraRotY}deg) translate3d(${cameraX}px, 0, 0)`;
-        }
-        if (layer1Ref.current) {
-          const bgScale = 1.05 + Math.max(0, scrollOffset * 0.0003);
-          layer1Ref.current.style.transform = `translate3d(${-cameraX * 0.25}px, 0, -150px) scale(${bgScale})`;
-        }
-        if (layer2Ref.current) {
-          layer2Ref.current.style.transform = `translate3d(${cameraX * 0.15}px, 0, -30px) scale(1.15)`;
-        }
-        if (layer3Ref.current) {
-          const weaponScale = 1.08 + Math.max(0, scrollOffset * 0.0006);
-          const weaponZ = 80 + Math.min(80, scrollOffset * 0.08);
-          layer3Ref.current.style.transform = `translate3d(${-cameraX * 0.45}px, 0, ${weaponZ}px) scale(${weaponScale})`;
-        }
+      if (bgRef.current) {
+        bgRef.current.style.transform = `perspective(1200px) rotateX(${cameraRotX}deg) rotateY(${cameraRotY}deg) translate3d(${cameraX}px, 0, 0)`;
+      }
+      if (layer1Ref.current) {
+        layer1Ref.current.style.transform = `translate3d(${-cameraX * 0.25}px, 0, -150px)`;
+      }
+      if (layer2Ref.current) {
+        layer2Ref.current.style.transform = `translate3d(${cameraX * 0.15}px, 0, -30px) scale(1.15)`;
+      }
+      if (layer3Ref.current) {
+        const weaponZ = 80 + Math.min(80, scrollOffset * 0.08);
+        layer3Ref.current.style.transform = `translate3d(${-cameraX * 0.45}px, 0, ${weaponZ}px)`;
       }
 
       rafId = requestAnimationFrame(updatePosition);
@@ -103,21 +116,21 @@ function WeaponSection({
 
     rafId = requestAnimationFrame(updatePosition);
     return () => cancelAnimationFrame(rafId);
-  }, [inView, direction]);
+  }, [direction]);
 
   return (
     <div
       ref={sectionRef}
       id={id}
       className="relative w-full overflow-hidden"
-      style={{ height: isMobile ? "55vh" : "70vh", minHeight: "380px", background: "var(--c-void)" }}
+      style={{ height: "70vh", minHeight: "380px", background: "var(--c-void)" }}
     >
-      {/* 3D Parallax Container */}
+      {/* Parallax Container */}
       <div
         ref={bgRef}
         className="absolute inset-0 z-0 transition-transform duration-75 ease-out"
         style={{
-          transformStyle: isMobile ? "flat" : "preserve-3d",
+          transformStyle: "preserve-3d",
           transformOrigin: "center center",
         }}
         aria-hidden="true"
@@ -125,44 +138,40 @@ function WeaponSection({
         {/* Layer 1: Main background image */}
         <div
           ref={layer1Ref}
-          className="absolute inset-0"
+          className="absolute inset-0 weapon-bg-layer"
           style={{
             backgroundImage: `url('${imgUrl}')`,
             backgroundSize: "cover",
             backgroundPosition: "center",
-            opacity: isMobile ? 0.7 : 0.25,
-            filter: isMobile ? "brightness(0.5)" : "blur(6px) brightness(0.4) saturate(0.5)",
-            transformStyle: isMobile ? "flat" : "preserve-3d",
+            opacity: 0.25,
+            filter: "blur(6px) brightness(0.4) saturate(0.5)",
+            transformStyle: "preserve-3d",
           }}
         />
 
         {/* Layer 2: Amber light glow (Desktop only) */}
-        {!isMobile && (
-          <div
-            ref={layer2Ref}
-            className="absolute inset-0 pointer-events-none opacity-40 mix-blend-color-dodge"
-            style={{
-              background: "radial-gradient(circle at 50% 50%, rgba(201, 76, 46, 0.4) 0%, transparent 60%)",
-              transformStyle: "preserve-3d",
-            }}
-          />
-        )}
+        <div
+          ref={layer2Ref}
+          className="absolute inset-0 pointer-events-none opacity-40 mix-blend-color-dodge hidden md:block"
+          style={{
+            background: "radial-gradient(circle at 50% 50%, rgba(201, 76, 46, 0.4) 0%, transparent 60%)",
+            transformStyle: "preserve-3d",
+          }}
+        />
 
         {/* Layer 3: Weapon Cutout (Desktop only) */}
-        {!isMobile && (
-          <div
-            ref={layer3Ref}
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `url('${imgUrl}')`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              opacity: 1,
-              clipPath: clipPath,
-              transformStyle: "preserve-3d",
-            }}
-          />
-        )}
+        <div
+          ref={layer3Ref}
+          className="absolute inset-0 hidden md:block"
+          style={{
+            backgroundImage: `url('${imgUrl}')`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            opacity: 1,
+            clipPath: clipPath,
+            transformStyle: "preserve-3d",
+          }}
+        />
 
         {/* Dark gradient overlays */}
         <div
@@ -179,11 +188,9 @@ function WeaponSection({
 
       {/* Content Overlay */}
       <div
-        className={`absolute inset-0 z-20 flex flex-col justify-center px-6 md:px-24 ${
-          direction === -1 && !isMobile ? "items-end text-right md:pr-32" : "items-start text-left"
-        }`}
+        className="absolute inset-0 z-20 flex flex-col justify-center px-6 md:px-24 items-start text-left"
       >
-        <div className={`flex items-center gap-4 mb-4 ${direction === -1 && !isMobile ? "flex-row-reverse" : ""}`} aria-hidden="true">
+        <div className="flex items-center gap-4 mb-4" aria-hidden="true">
           <span className="text-meta" style={{ color: "var(--c-smoke)" }}>
             {indexLabel}
           </span>
@@ -227,6 +234,22 @@ function WeaponSection({
         className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-stone-800/40 to-transparent"
         aria-hidden="true"
       />
+
+      {/* Responsive adjustments styling */}
+      <style jsx>{`
+        @media (max-width: 767px) {
+          .weapon-bg-layer {
+            filter: brightness(0.5) !important;
+            opacity: 0.75 !important;
+          }
+        }
+        @media (min-width: 768px) {
+          .weapon-bg-layer {
+            filter: blur(6px) brightness(0.4) saturate(0.5) !important;
+            opacity: 0.25 !important;
+          }
+        }
+      `}</style>
     </div>
   );
 }

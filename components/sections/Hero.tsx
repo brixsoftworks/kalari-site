@@ -1,15 +1,17 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export default function Hero() {
+  const containerRef = useRef<HTMLDivElement>(null);
   const bgRef = useRef<HTMLDivElement>(null);
   const layer1Ref = useRef<HTMLDivElement>(null);
   const layer2Ref = useRef<HTMLDivElement>(null);
   const layer3Ref = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const [loaded, setLoaded] = useState(false);
-  const scrollYRef = useRef(0);
 
   // Entrance transition
   useEffect(() => {
@@ -17,17 +19,49 @@ export default function Hero() {
     return () => clearTimeout(timer);
   }, []);
 
-  // Track scroll position in a ref
+  // GSAP ScrollTrigger for smooth device-agnostic scroll zoom
   useEffect(() => {
-    const onScroll = () => {
-      scrollYRef.current = window.scrollY;
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    if (typeof window === "undefined") return;
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const isMobile = window.innerWidth < 768;
+
+    const ctx = gsap.context(() => {
+      // Zoom effect on scroll
+      gsap.to(layer1Ref.current, {
+        scale: isMobile ? 1.25 : 1.35,
+        ease: "none",
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+
+      if (!isMobile) {
+        // Zoom cutout faster on desktop for 3D parallax
+        gsap.to(layer3Ref.current, {
+          scale: 1.45,
+          ease: "none",
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top top",
+            end: "bottom top",
+            scrub: true,
+          },
+        });
+      }
+    }, containerRef);
+
+    return () => ctx.revert();
   }, []);
 
-  // 3D Parallax loop
+  // 3D Mouse tracking parallax (Desktop only)
   useEffect(() => {
+    if (typeof window === "undefined" || window.innerWidth < 768) return;
+
     let targetX = 0;
     let targetY = 0;
     let currentX = 0;
@@ -35,7 +69,6 @@ export default function Hero() {
     let rafId: number;
 
     const onMouseMove = (e: MouseEvent) => {
-      if (window.innerWidth < 768) return; // Disable mouse tilt on mobile
       const { clientX, clientY } = e;
       const { innerWidth, innerHeight } = window;
       targetX = (clientX / innerWidth) - 0.5;
@@ -49,74 +82,19 @@ export default function Hero() {
     const updatePosition = () => {
       currentX = lerp(currentX, targetX, 0.08);
       currentY = lerp(currentY, targetY, 0.08);
-      const scrollY = scrollYRef.current;
-      const isMobile = window.innerWidth < 768;
 
-      if (isMobile) {
-        // 1. Mobile 3D Parallax & Scroll Zoom (Dual-Layer depth pop)
-        if (bgRef.current) {
-          // Camera pan translation on scroll
-          bgRef.current.style.transform = `translate3d(0, ${scrollY * 0.35}px, 0)`;
-        }
-
-        // Background: slower zoom
-        if (layer1Ref.current) {
-          const bgScale = 1.04 + scrollY * 0.0006;
-          layer1Ref.current.style.transform = `scale(${bgScale})`;
-          layer1Ref.current.style.opacity = "0.35";
-          layer1Ref.current.style.filter = "blur(5px) brightness(0.55) saturate(0.8)";
-        }
-
-        // Glow: ambient shift
-        if (layer2Ref.current) {
-          layer2Ref.current.style.display = "block";
-          const glowScale = 1.08 + scrollY * 0.0008;
-          layer2Ref.current.style.transform = `scale(${glowScale})`;
-        }
-
-        // Warrior: faster zoom (creates the dynamic 3D separation effect)
-        if (layer3Ref.current) {
-          layer3Ref.current.style.display = "block";
-          layer3Ref.current.style.clipPath = "ellipse(44% 48% at 50% 50%)"; // Oval mask to fit vertical mobile screens
-          const warriorScale = 1.06 + scrollY * 0.0018; // Zooms significantly faster than the background
-          layer3Ref.current.style.transform = `scale(${warriorScale})`;
-        }
-      } else {
-        // 2. Desktop 3D Orbital Camera Pan & Zoom
-        if (layer2Ref.current) {
-          layer2Ref.current.style.display = "block";
-        }
-        if (layer3Ref.current) {
-          layer3Ref.current.style.display = "block";
-          layer3Ref.current.style.clipPath = "polygon(22% 10%, 78% 10%, 85% 90%, 15% 90%)";
-        }
-
-        const cameraX = -scrollY * 0.5;
-        const cameraY = scrollY * 0.12;
-        const cameraRotY = scrollY * 0.05;
-        const cameraRotX = scrollY * -0.015;
-
-        const totalRotX = (currentY * -6) + cameraRotX;
-        const totalRotY = (currentX * 6) + cameraRotY;
-
-        if (bgRef.current) {
-          bgRef.current.style.transform = `perspective(1200px) rotateX(${totalRotX}deg) rotateY(${totalRotY}deg) translate3d(${cameraX}px, ${cameraY}px, 0)`;
-        }
-        if (layer1Ref.current) {
-          const bgScale = 1.05 + scrollY * 0.0004;
-          layer1Ref.current.style.transform = `translate3d(${currentX * -10}px, ${currentY * -10}px, -150px) scale(${bgScale})`;
-          layer1Ref.current.style.opacity = "0.35";
-          layer1Ref.current.style.filter = "blur(6px) brightness(0.6) saturate(0.8)";
-        }
-        if (layer2Ref.current) {
-          const glowScale = 1.1 + scrollY * 0.0006;
-          layer2Ref.current.style.transform = `translate3d(${currentX * 18}px, ${currentY * 18}px, -30px) scale(${glowScale})`;
-        }
-        if (layer3Ref.current) {
-          const warriorScale = 1.06 + scrollY * 0.0016;
-          const warriorZ = 100 + Math.min(120, scrollY * 0.18);
-          layer3Ref.current.style.transform = `translate3d(${currentX * 28}px, ${currentY * 28}px, ${warriorZ}px) scale(${warriorScale})`;
-        }
+      // Desktop interactive tilt
+      if (bgRef.current) {
+        bgRef.current.style.transform = `perspective(1200px) rotateX(${currentY * -6}deg) rotateY(${currentX * 6}deg)`;
+      }
+      if (layer1Ref.current) {
+        layer1Ref.current.style.transform = `translate3d(${currentX * -12}px, ${currentY * -12}px, -100px)`;
+      }
+      if (layer2Ref.current) {
+        layer2Ref.current.style.transform = `translate3d(${currentX * 18}px, ${currentY * 18}px, -20px)`;
+      }
+      if (layer3Ref.current) {
+        layer3Ref.current.style.transform = `translate3d(${currentX * 28}px, ${currentY * 28}px, 80px)`;
       }
 
       rafId = requestAnimationFrame(updatePosition);
@@ -137,6 +115,7 @@ export default function Hero() {
 
   return (
     <section
+      ref={containerRef}
       id="hero"
       className="relative w-full overflow-hidden"
       style={{ height: "100svh", minHeight: "600px" }}
@@ -152,35 +131,34 @@ export default function Hero() {
         }}
         aria-hidden="true"
       >
-        {/* Layer 1: Ambient background image */}
+        {/* Layer 1: Main background image (Full bleed on mobile, darkened on desktop) */}
         <div
           ref={layer1Ref}
-          className="absolute inset-0"
+          className="absolute inset-0 hero-bg-layer"
           style={{
             backgroundImage: "url('/images/movement.jpg')",
             backgroundSize: "cover",
             backgroundPosition: "center 30%",
-            opacity: loaded ? 0.35 : 0,
-            filter: "blur(6px) brightness(0.6) saturate(0.8)",
+            opacity: loaded ? 1 : 0,
             transition: "opacity 2.4s cubic-bezier(0.16, 1, 0.3, 1)",
             transformStyle: "preserve-3d",
           }}
         />
 
-        {/* Layer 2: Warm firelight glow */}
+        {/* Layer 2: Warm firelight glow (Desktop only via CSS media queries) */}
         <div
           ref={layer2Ref}
-          className="absolute inset-0 pointer-events-none opacity-40 mix-blend-color-dodge"
+          className="absolute inset-0 pointer-events-none opacity-40 mix-blend-color-dodge hidden md:block"
           style={{
             background: "radial-gradient(circle at 50% 50%, rgba(201, 76, 46, 0.5) 0%, transparent 60%)",
             transformStyle: "preserve-3d",
           }}
         />
 
-        {/* Layer 3: Dynamic Warrior Cutout */}
+        {/* Layer 3: Dynamic Warrior Cutout (Desktop only via CSS media queries) */}
         <div
           ref={layer3Ref}
-          className="absolute inset-0"
+          className="absolute inset-0 hidden md:block"
           style={{
             backgroundImage: "url('/images/movement.jpg')",
             backgroundSize: "cover",
@@ -212,28 +190,6 @@ export default function Hero() {
       {/* Vignette */}
       <div className="vignette" aria-hidden="true" />
 
-      {/* Top-left brand */}
-      <div
-        className="absolute top-8 left-[clamp(1.5rem,4vw,4rem)] z-10"
-        style={{
-          opacity: loaded ? 1 : 0,
-          transition: "opacity 1s 0.8s",
-        }}
-        aria-hidden="true"
-      >
-        <span
-          style={{
-            fontFamily: "var(--font-display)",
-            fontSize: "clamp(1.2rem,2.5vw,1.8rem)",
-            fontWeight: 300,
-            letterSpacing: "0.35em",
-            color: "var(--c-ivory)",
-          }}
-        >
-          KALARI
-        </span>
-      </div>
-
       {/* Center content */}
       <div
         className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center px-6"
@@ -252,6 +208,7 @@ export default function Hero() {
 
         <div style={{ overflow: "hidden" }}>
           <h1
+            ref={headingRef}
             className="text-hero"
             style={{
               color: "var(--c-ivory)",
@@ -372,6 +329,22 @@ export default function Hero() {
         aria-hidden="true"
         style={{ height: "1px", background: "rgba(181,58,37,0.2)" }}
       />
+
+      {/* Responsive adjustments styling */}
+      <style jsx>{`
+        @media (max-width: 767px) {
+          .hero-bg-layer {
+            filter: none !important;
+            opacity: 1 !important;
+          }
+        }
+        @media (min-width: 768px) {
+          .hero-bg-layer {
+            filter: blur(6px) brightness(0.6) saturate(0.8) !important;
+            opacity: 0.35 !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }
