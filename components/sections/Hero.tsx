@@ -9,18 +9,7 @@ export default function Hero() {
   const layer3Ref = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const [loaded, setLoaded] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
   const scrollYRef = useRef(0);
-
-  // Mobile detection
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
 
   // Entrance transition
   useEffect(() => {
@@ -61,19 +50,34 @@ export default function Hero() {
       currentX = lerp(currentX, targetX, 0.08);
       currentY = lerp(currentY, targetY, 0.08);
       const scrollY = scrollYRef.current;
-      const mobile = window.innerWidth < 768;
+      const isMobile = window.innerWidth < 768;
 
-      if (mobile) {
-        // Simplified non-glitching translation on mobile scroll
+      if (isMobile) {
+        // 1. Mobile Layout & Zoom
         if (bgRef.current) {
           bgRef.current.style.transform = `translate3d(0, ${scrollY * 0.35}px, 0)`;
         }
         if (layer1Ref.current) {
-          const bgScale = 1.02 + scrollY * 0.0003;
+          const bgScale = 1.05 + scrollY * 0.0012; // Beautiful visible zoom on mobile scroll
           layer1Ref.current.style.transform = `scale(${bgScale})`;
+          layer1Ref.current.style.opacity = "1";
+          layer1Ref.current.style.filter = "none";
+        }
+        if (layer2Ref.current) {
+          layer2Ref.current.style.display = "none";
+        }
+        if (layer3Ref.current) {
+          layer3Ref.current.style.display = "none";
         }
       } else {
-        // Full cinematic 3D orbital camera pan on desktop
+        // 2. Desktop 3D Orbital Camera
+        if (layer2Ref.current) {
+          layer2Ref.current.style.display = "block";
+        }
+        if (layer3Ref.current) {
+          layer3Ref.current.style.display = "block";
+        }
+
         const cameraX = -scrollY * 0.5;
         const cameraY = scrollY * 0.12;
         const cameraRotY = scrollY * 0.05;
@@ -88,6 +92,8 @@ export default function Hero() {
         if (layer1Ref.current) {
           const bgScale = 1.05 + scrollY * 0.0004;
           layer1Ref.current.style.transform = `translate3d(${currentX * -10}px, ${currentY * -10}px, -150px) scale(${bgScale})`;
+          layer1Ref.current.style.opacity = "0.35";
+          layer1Ref.current.style.filter = "blur(6px) brightness(0.6) saturate(0.8)";
         }
         if (layer2Ref.current) {
           const glowScale = 1.1 + scrollY * 0.0006;
@@ -123,12 +129,12 @@ export default function Hero() {
       style={{ height: "100svh", minHeight: "600px" }}
       aria-label="Hero — The Art of the Warrior"
     >
-      {/* 3D/Parallax Background Wrapper */}
+      {/* 3D Parallax Container */}
       <div
         ref={bgRef}
         className="absolute inset-0 z-0 transition-transform duration-75 ease-out"
         style={{
-          transformStyle: isMobile ? "flat" : "preserve-3d",
+          transformStyle: "preserve-3d",
           transformOrigin: "center center",
         }}
         aria-hidden="true"
@@ -141,41 +147,37 @@ export default function Hero() {
             backgroundImage: "url('/images/movement.jpg')",
             backgroundSize: "cover",
             backgroundPosition: "center 30%",
-            opacity: loaded ? (isMobile ? 1 : 0.35) : 0,
-            filter: isMobile ? "none" : "blur(6px) brightness(0.6) saturate(0.8)",
+            opacity: loaded ? 0.35 : 0,
+            filter: "blur(6px) brightness(0.6) saturate(0.8)",
             transition: "opacity 2.4s cubic-bezier(0.16, 1, 0.3, 1)",
-            transformStyle: isMobile ? "flat" : "preserve-3d",
+            transformStyle: "preserve-3d",
           }}
         />
 
-        {/* Layer 2: Firelight glow (Desktop only) */}
-        {!isMobile && (
-          <div
-            ref={layer2Ref}
-            className="absolute inset-0 pointer-events-none opacity-40 mix-blend-color-dodge"
-            style={{
-              background: "radial-gradient(circle at 50% 50%, rgba(201, 76, 46, 0.5) 0%, transparent 60%)",
-              transformStyle: "preserve-3d",
-            }}
-          />
-        )}
+        {/* Layer 2: Warm firelight glow */}
+        <div
+          ref={layer2Ref}
+          className="absolute inset-0 pointer-events-none opacity-40 mix-blend-color-dodge"
+          style={{
+            background: "radial-gradient(circle at 50% 50%, rgba(201, 76, 46, 0.5) 0%, transparent 60%)",
+            transformStyle: "preserve-3d",
+          }}
+        />
 
-        {/* Layer 3: Warrior Cutout (Desktop only) */}
-        {!isMobile && (
-          <div
-            ref={layer3Ref}
-            className="absolute inset-0"
-            style={{
-              backgroundImage: "url('/images/movement.jpg')",
-              backgroundSize: "cover",
-              backgroundPosition: "center 30%",
-              opacity: loaded ? 1 : 0,
-              clipPath: "polygon(22% 10%, 78% 10%, 85% 90%, 15% 90%)",
-              transition: "opacity 2.4s cubic-bezier(0.16, 1, 0.3, 1)",
-              transformStyle: "preserve-3d",
-            }}
-          />
-        )}
+        {/* Layer 3: Dynamic Warrior Cutout */}
+        <div
+          ref={layer3Ref}
+          className="absolute inset-0"
+          style={{
+            backgroundImage: "url('/images/movement.jpg')",
+            backgroundSize: "cover",
+            backgroundPosition: "center 30%",
+            opacity: loaded ? 1 : 0,
+            clipPath: "polygon(22% 10%, 78% 10%, 85% 90%, 15% 90%)",
+            transition: "opacity 2.4s cubic-bezier(0.16, 1, 0.3, 1)",
+            transformStyle: "preserve-3d",
+          }}
+        />
 
         {/* Dark gradient overlays */}
         <div
@@ -237,7 +239,6 @@ export default function Hero() {
 
         <div style={{ overflow: "hidden" }}>
           <h1
-            ref={headingRef}
             className="text-hero"
             style={{
               color: "var(--c-ivory)",
