@@ -46,7 +46,7 @@ export default function TheKalari() {
             </div>
           </div>
           <div className="reveal-up" style={{ transitionDelay: "0.2s" }}>
-            <p className="text-body" style={{ color: "var(--c-parchment)", opacity: 0.8 }}>
+            <p className="text-body" style={{ color: "var(--c-parchment)", opacity: 0.95 }}>
               Where the body learns discipline, and movement becomes memory.
               The kalari is not merely a training space — it is a living temple
               where the warrior tradition breathes.
@@ -55,46 +55,87 @@ export default function TheKalari() {
         </div>
       </div>
 
-      {/* Full-width image */}
-      <div
-        className="img-hover-wrap clip-reveal"
-        data-cursor-label="ENTER"
-        style={{
-          position: "relative",
-          height: "clamp(320px, 65vh, 760px)",
-          overflow: "hidden",
-        }}
-      >
-        <img
-          src="/images/interior.jpg"
-          alt="Interior of the ancient kalari training hall with oil lamps and red earth floor"
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            objectPosition: "center 30%",
-            display: "block",
-          }}
-          loading="lazy"
-        />
-        {/* Gradient overlay */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(to bottom, rgba(10,9,8,0.15) 0%, rgba(10,9,8,0.6) 100%)",
-          }}
-          aria-hidden="true"
-        />
+      {/* Dual Image Showcase: The Space & The Master */}
+      <div className="kalari-container pb-16">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch">
+          {/* Left: Kalari Interior (7 columns) */}
+          <div
+            className="md:col-span-7 img-hover-wrap clip-reveal"
+            data-cursor-label="THE SPACE"
+            style={{
+              position: "relative",
+              height: "clamp(320px, 55vh, 640px)",
+              overflow: "hidden",
+            }}
+          >
+            <img
+              src="/images/interior.jpg"
+              alt="Interior of the ancient Kalari training hall with oil lamps and red earth floor"
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                objectPosition: "center 30%",
+                display: "block",
+              }}
+              loading="lazy"
+            />
+            {/* Gradient overlay */}
+            <div
+              className="absolute inset-0"
+              style={{
+                background:
+                  "linear-gradient(to bottom, rgba(10,9,8,0.15) 0%, rgba(10,9,8,0.55) 100%)",
+              }}
+              aria-hidden="true"
+            />
+            {/* Caption */}
+            <div className="absolute bottom-6 left-6" aria-hidden="true">
+              <span className="text-meta" style={{ color: "var(--c-ash)", fontSize: "0.85rem" }}>
+                THE SACRED CHUVANNA MANN (RED EARTH)
+              </span>
+            </div>
+          </div>
 
-        {/* Image caption */}
-        <div
-          className="absolute bottom-8 left-[clamp(1.5rem,4vw,4rem)]"
-          aria-hidden="true"
-        >
-          <span className="text-meta" style={{ color: "var(--c-ash)" }}>
-            VADAKARA &nbsp;·&nbsp; NORTHERN KERALA
-          </span>
+          {/* Right: The Gurukkal (5 columns) */}
+          <div
+            className="md:col-span-5 img-hover-wrap clip-reveal"
+            data-cursor-label="GURUKKAL"
+            style={{
+              position: "relative",
+              height: "clamp(320px, 55vh, 640px)",
+              overflow: "hidden",
+              transitionDelay: "0.15s",
+            }}
+          >
+            <img
+              src="/images/guru_hero.jpg"
+              alt="Kadathanad KPCGM Kalari Sangham Gurukkal standing in the training space"
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                objectPosition: "center 20%",
+                display: "block",
+              }}
+              loading="lazy"
+            />
+            {/* Gradient overlay */}
+            <div
+              className="absolute inset-0"
+              style={{
+                background:
+                  "linear-gradient(to bottom, rgba(10,9,8,0.15) 0%, rgba(10,9,8,0.55) 100%)",
+              }}
+              aria-hidden="true"
+            />
+            {/* Caption */}
+            <div className="absolute bottom-6 left-6" aria-hidden="true">
+              <span className="text-meta" style={{ color: "var(--c-gold)", fontSize: "0.85rem" }}>
+                MADHU GURUKKAL · KADATHANAD HERITAGE
+              </span>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -121,7 +162,7 @@ export default function TheKalari() {
             <span className="accent-line mb-4" />
             <p
               className="text-body"
-              style={{ color: "var(--c-parchment)", opacity: 0.85, fontSize: "1.0rem" }}
+              style={{ color: "var(--c-parchment)", opacity: 0.95, fontSize: "1.0rem" }}
             >
               Built facing east, aligned to the elements. The kalari is divided
               into sacred zones — each carrying specific meaning. The earth

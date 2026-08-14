@@ -16,10 +16,10 @@
   --c-flame:      #C94C2E;
   --c-gold:       #C79A62;
   --c-antique:    #A87A45;
-  --c-ivory:      #FAF6EE; /* Brighter premium warm white for headings */
-  --c-parchment:  #E8DEC9; /* High-contrast warm parchment cream for body copy */
-  --c-ash:        #BAAE9E; /* Legible taupe for meta labels */
-  --c-smoke:      #8F8272; /* Readable stone gray for secondary details */
+  --c-ivory:      #FFFFFF; /* Solid white for maximum contrast & premium pop */
+  --c-parchment:  #F7F5F0; /* Ultra-bright cream for perfect readability */
+  --c-ash:        #ECE7DF; /* Extremely bright warm gray/taupe for labels */
+  --c-smoke:      #D4C9BC; /* Bright warm silver for secondary metadata details */
 
   --ease-out:     cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out:  cubic-bezier(0.77, 0, 0.175, 1);
@@ -72,8 +72,8 @@ html {
 
 .text-meta {
   font-family: var(--font-body);
-  font-size: 0.8rem; /* Increased from 0.625rem for readability */
-  font-weight: 500;
+  font-size: 0.95rem; /* Further increased for premium legibility */
+  font-weight: 600; /* Bolder for perfect visibility */
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--c-ash);
@@ -81,8 +81,8 @@ html {
 
 .text-label {
   font-family: var(--font-body);
-  font-size: 0.9rem; /* Increased from 0.75rem for readability */
-  font-weight: 400;
+  font-size: 1.05rem; /* Increased from 0.9rem */
+  font-weight: 500;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--c-smoke);
@@ -90,9 +90,9 @@ html {
 
 .text-body {
   font-family: var(--font-body);
-  font-size: 0.9375rem;
-  font-weight: 300;
-  line-height: 1.8;
+  font-size: 1.15rem; /* Increased from 0.9375rem to look great and highly readable */
+  font-weight: 350;
+  line-height: 1.85;
   color: var(--c-parchment);
 }
 

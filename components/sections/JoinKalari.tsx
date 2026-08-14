@@ -62,7 +62,7 @@ export default function JoinKalari() {
         <div className="text-center mb-20">
           <div className="reveal-line">
             <span>
-              <span className="text-meta" style={{ color: "rgba(232,221,203,0.5)" }}>
+              <span className="text-meta" style={{ color: "var(--c-gold)" }}>
                 STEP INTO THE KALARI
               </span>
             </span>
@@ -90,7 +90,7 @@ export default function JoinKalari() {
             <p
               className="text-body"
               style={{
-                color: "rgba(232,221,203,0.7)",
+                color: "var(--c-parchment)",
                 maxWidth: "36rem",
                 margin: "0 auto",
               }}
@@ -135,7 +135,7 @@ export default function JoinKalari() {
             >
               The door is open.
             </h3>
-            <p className="text-body" style={{ color: "rgba(232,221,203,0.7)" }}>
+            <p className="text-body" style={{ color: "var(--c-parchment)" }}>
               We will be in touch within 24 hours to confirm your place.
             </p>
           </div>
@@ -160,7 +160,7 @@ export default function JoinKalari() {
                     style={{
                       width: "2rem",
                       height: "2rem",
-                      border: `1px solid ${step >= i ? "var(--c-gold)" : "rgba(232,221,203,0.2)"}`,
+                      border: `1px solid ${step >= i ? "var(--c-gold)" : "rgba(255,255,255,0.25)"}`,
                       borderRadius: "50%",
                       display: "flex",
                       alignItems: "center",
@@ -174,7 +174,7 @@ export default function JoinKalari() {
                         fontFamily: "var(--font-body)",
                         fontSize: "0.85rem",
                         letterSpacing: "0.05em",
-                        color: step > i ? "var(--c-void)" : step === i ? "var(--c-gold)" : "rgba(232,221,203,0.4)",
+                        color: step > i ? "var(--c-void)" : step === i ? "var(--c-gold)" : "var(--c-smoke)",
                       }}
                     >
                       {step > i ? "✓" : s.num}
@@ -183,7 +183,7 @@ export default function JoinKalari() {
                   <span
                     className="text-meta hidden md:block"
                     style={{
-                      color: step >= i ? "rgba(232,221,203,0.8)" : "rgba(232,221,203,0.3)",
+                      color: step >= i ? "var(--c-parchment)" : "var(--c-smoke)",
                       transition: "color 0.3s",
                     }}
                   >
@@ -198,7 +198,7 @@ export default function JoinKalari() {
                         left: `${(i + 0.5) * (100 / steps.length)}%`,
                         width: `${100 / steps.length}%`,
                         height: "1px",
-                        background: step > i ? "var(--c-gold)" : "rgba(232,221,203,0.15)",
+                        background: step > i ? "var(--c-gold)" : "rgba(255,255,255,0.15)",
                         transition: "background 0.4s",
                       }}
                       aria-hidden="true"
@@ -212,7 +212,7 @@ export default function JoinKalari() {
             <form onSubmit={handleSubmit}>
               {step === 0 && (
                 <fieldset>
-                  <legend className="text-meta mb-8" style={{ color: "rgba(232,221,203,0.5)" }}>
+                  <legend className="text-meta mb-8" style={{ color: "var(--c-gold)" }}>
                     SELECT A PROGRAM
                   </legend>
                   <div className="flex flex-col gap-3">
@@ -224,8 +224,8 @@ export default function JoinKalari() {
                         style={{
                           width: "100%",
                           padding: "1.25rem 1.75rem",
-                          background: selected === p ? "rgba(199,154,98,0.15)" : "rgba(232,221,203,0.04)",
-                          border: `1px solid ${selected === p ? "var(--c-gold)" : "rgba(232,221,203,0.12)"}`,
+                          background: selected === p ? "rgba(199,154,98,0.25)" : "rgba(255,255,255,0.04)",
+                          border: `1px solid ${selected === p ? "var(--c-gold)" : "rgba(255,255,255,0.15)"}`,
                           color: selected === p ? "var(--c-gold)" : "var(--c-ivory)",
                           fontFamily: "var(--font-display)",
                           fontSize: "clamp(1rem, 2vw, 1.4rem)",
@@ -244,12 +244,12 @@ export default function JoinKalari() {
 
               {step === 1 && (
                 <fieldset>
-                  <legend className="text-meta mb-8" style={{ color: "rgba(232,221,203,0.5)" }}>
+                  <legend className="text-meta mb-8" style={{ color: "var(--c-gold)" }}>
                     PREFERRED START DATE
                   </legend>
                   <div>
                     <label htmlFor="start-date" className="text-label mb-3 block"
-                      style={{ color: "rgba(232,221,203,0.5)" }}>
+                      style={{ color: "var(--c-ash)" }}>
                       START DATE
                     </label>
                     <input
@@ -261,8 +261,8 @@ export default function JoinKalari() {
                       style={{
                         width: "100%",
                         padding: "1rem 1.25rem",
-                        background: "rgba(232,221,203,0.06)",
-                        border: "1px solid rgba(232,221,203,0.2)",
+                        background: "rgba(255,255,255,0.06)",
+                        border: "1px solid rgba(255,255,255,0.2)",
                         color: "var(--c-ivory)",
                         fontFamily: "var(--font-body)",
                         fontSize: "1rem",
@@ -270,7 +270,7 @@ export default function JoinKalari() {
                         colorScheme: "dark",
                       }}
                     />
-                    <p className="text-meta mt-4" style={{ color: "rgba(232,221,203,0.4)" }}>
+                    <p className="text-meta mt-4" style={{ color: "var(--c-smoke)" }}>
                       We will confirm availability within 24 hours
                     </p>
                   </div>
@@ -279,7 +279,7 @@ export default function JoinKalari() {
 
               {step === 2 && (
                 <fieldset>
-                  <legend className="text-meta mb-8" style={{ color: "rgba(232,221,203,0.5)" }}>
+                  <legend className="text-meta mb-8" style={{ color: "var(--c-gold)" }}>
                     YOUR DETAILS
                   </legend>
                   <div className="flex flex-col gap-5">
@@ -292,7 +292,7 @@ export default function JoinKalari() {
                         <label
                           htmlFor={field.id}
                           className="text-meta block mb-2"
-                          style={{ color: "rgba(232,221,203,0.5)" }}
+                          style={{ color: "var(--c-ash)" }}
                         >
                           {field.label}
                         </label>
@@ -307,8 +307,8 @@ export default function JoinKalari() {
                           style={{
                             width: "100%",
                             padding: "1rem 1.25rem",
-                            background: "rgba(232,221,203,0.06)",
-                            border: "1px solid rgba(232,221,203,0.2)",
+                            background: "rgba(255,255,255,0.06)",
+                            border: "1px solid rgba(255,255,255,0.2)",
                             color: "var(--c-ivory)",
                             fontFamily: "var(--font-body)",
                             fontSize: "1rem",
@@ -321,7 +321,7 @@ export default function JoinKalari() {
                       <label
                         htmlFor="message"
                         className="text-meta block mb-2"
-                        style={{ color: "rgba(232,221,203,0.5)" }}
+                        style={{ color: "var(--c-ash)" }}
                       >
                         MESSAGE (OPTIONAL)
                       </label>
@@ -335,8 +335,8 @@ export default function JoinKalari() {
                         style={{
                           width: "100%",
                           padding: "1rem 1.25rem",
-                          background: "rgba(232,221,203,0.06)",
-                          border: "1px solid rgba(232,221,203,0.2)",
+                          background: "rgba(255,255,255,0.06)",
+                          border: "1px solid rgba(255,255,255,0.2)",
                           color: "var(--c-ivory)",
                           fontFamily: "var(--font-body)",
                           fontSize: "1rem",
@@ -351,7 +351,7 @@ export default function JoinKalari() {
 
               {step === 3 && (
                 <div>
-                  <p className="text-meta mb-10" style={{ color: "rgba(232,221,203,0.5)" }}>
+                  <p className="text-meta mb-10" style={{ color: "var(--c-gold)" }}>
                     CONFIRM YOUR BOOKING
                   </p>
                   <div className="flex flex-col gap-5">
@@ -364,14 +364,14 @@ export default function JoinKalari() {
                       <div
                         key={r.label}
                         style={{
-                          borderBottom: "1px solid rgba(232,221,203,0.1)",
+                          borderBottom: "1px solid rgba(255,255,255,0.1)",
                           paddingBottom: "1rem",
                           display: "flex",
                           justifyContent: "space-between",
                           gap: "1rem",
                         }}
                       >
-                        <span className="text-meta" style={{ color: "rgba(232,221,203,0.4)" }}>
+                        <span className="text-meta" style={{ color: "var(--c-smoke)" }}>
                           {r.label}
                         </span>
                         <span
@@ -393,7 +393,7 @@ export default function JoinKalari() {
               {/* Navigation buttons */}
               <div
                 className="flex items-center justify-between mt-12"
-                style={{ borderTop: "1px solid rgba(232,221,203,0.1)", paddingTop: "2rem" }}
+                style={{ borderTop: "1px solid rgba(255,255,255,0.1)", paddingTop: "2rem" }}
               >
                 {step > 0 ? (
                   <button
@@ -401,8 +401,8 @@ export default function JoinKalari() {
                     onClick={() => setStep((s) => s - 1)}
                     style={{
                       background: "none",
-                      border: "1px solid rgba(232,221,203,0.2)",
-                      color: "rgba(232,221,203,0.6)",
+                      border: "1px solid rgba(255,255,255,0.3)",
+                      color: "var(--c-ash)",
                       fontFamily: "var(--font-body)",
                       fontSize: "0.85rem",
                       letterSpacing: "0.2em",
@@ -413,13 +413,13 @@ export default function JoinKalari() {
                     }}
                     onMouseEnter={(e) => {
                       const el = e.currentTarget as HTMLButtonElement;
-                      el.style.borderColor = "rgba(232,221,203,0.5)";
+                      el.style.borderColor = "var(--c-gold)";
                       el.style.color = "var(--c-ivory)";
                     }}
                     onMouseLeave={(e) => {
                       const el = e.currentTarget as HTMLButtonElement;
-                      el.style.borderColor = "rgba(232,221,203,0.2)";
-                      el.style.color = "rgba(232,221,203,0.6)";
+                      el.style.borderColor = "rgba(255,255,255,0.3)";
+                      el.style.color = "var(--c-ash)";
                     }}
                   >
                     ← BACK
@@ -491,7 +491,7 @@ export default function JoinKalari() {
 
         {/* Bottom flourish */}
         <div className="text-center mt-24">
-          <p className="text-meta" style={{ color: "rgba(232,221,203,0.3)" }}>
+          <p className="text-meta" style={{ color: "var(--c-smoke)" }}>
             KALARIPAYATTU &nbsp;·&nbsp; KERALA &nbsp;·&nbsp; INDIA &nbsp;·&nbsp; EST. ANCIENT
           </p>
         </div>
