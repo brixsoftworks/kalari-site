@@ -300,3 +300,214 @@
     at process.processTimers (node:internal/timers:541:7)
 [error] 
 [error] Error: An unexpected error has occurred.
+[debug] [2026-08-14T05:59:50.980Z] ----------------------------------------------------------------------
+[debug] [2026-08-14T05:59:50.982Z] Command:       /usr/bin/node-24 /home/mullainathan/.npm/_npx/ba4f1959e38407b5/node_modules/.bin/firebase deploy --only hosting --project kalari-warrior-site
+[debug] [2026-08-14T05:59:50.983Z] CLI Version:   15.27.0
+[debug] [2026-08-14T05:59:50.983Z] Platform:      linux
+[debug] [2026-08-14T05:59:50.983Z] Node Version:  v24.13.1
+[debug] [2026-08-14T05:59:50.983Z] Detected Agent: antigravity
+[debug] [2026-08-14T05:59:50.983Z] Time:          Fri Aug 14 2026 11:29:50 GMT+0530 (India Standard Time)
+[debug] [2026-08-14T05:59:50.983Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-08-14T05:59:52.126Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-08-14T05:59:52.127Z] > authorizing via signed-in user (technologies.brix@gmail.com)
+[debug] [2026-08-14T05:59:52.127Z] [iam] checking project kalari-warrior-site for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2026-08-14T05:59:52.153Z] Checked if tokens are valid: true, expires at: 1786690098652
+[debug] [2026-08-14T05:59:52.153Z] Checked if tokens are valid: true, expires at: 1786690098652
+[debug] [2026-08-14T05:59:52.154Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/kalari-warrior-site:testIamPermissions [none]
+[debug] [2026-08-14T05:59:52.154Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/kalari-warrior-site:testIamPermissions  x-goog-user-project=kalari-warrior-site
+[debug] [2026-08-14T05:59:52.154Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/kalari-warrior-site:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2026-08-14T05:59:52.753Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/kalari-warrior-site:testIamPermissions 200
+[debug] [2026-08-14T05:59:52.754Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/kalari-warrior-site:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2026-08-14T05:59:52.755Z] Checked if tokens are valid: true, expires at: 1786690098652
+[debug] [2026-08-14T05:59:52.755Z] Checked if tokens are valid: true, expires at: 1786690098652
+[debug] [2026-08-14T05:59:52.756Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/kalari-warrior-site [none]
+[debug] [2026-08-14T05:59:56.568Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/kalari-warrior-site 200
+[debug] [2026-08-14T05:59:56.569Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/kalari-warrior-site {"projectId":"kalari-warrior-site","projectNumber":"987868067578","displayName":"Kalari Warrior Site","name":"projects/kalari-warrior-site","resources":{"hostingSite":"kalari-warrior-site"},"state":"ACTIVE","labels":{"firebase":"enabled"},"etag":"1_00ddf5d7-554b-4142-8723-9efd96ed8724"}
+[info] 
+[info] === Deploying to 'kalari-warrior-site'...
+[info] 
+[info] i  deploying hosting 
+[debug] [2026-08-14T05:59:56.577Z] Checked if tokens are valid: true, expires at: 1786690098652
+[debug] [2026-08-14T05:59:56.577Z] Checked if tokens are valid: true, expires at: 1786690098652
+[debug] [2026-08-14T05:59:56.577Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/kalari-warrior-site/sites/kalari-warrior-site [none]
+[debug] [2026-08-14T06:00:02.225Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/kalari-warrior-site/sites/kalari-warrior-site 200
+[debug] [2026-08-14T06:00:02.225Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/kalari-warrior-site/sites/kalari-warrior-site {"name":"projects/kalari-warrior-site/sites/kalari-warrior-site","defaultUrl":"https://kalari-warrior-site.web.app","type":"DEFAULT_SITE"}
+[debug] [2026-08-14T06:00:02.230Z] Checked if tokens are valid: true, expires at: 1786690098652
+[debug] [2026-08-14T06:00:02.230Z] Checked if tokens are valid: true, expires at: 1786690098652
+[debug] [2026-08-14T06:00:02.233Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/kalari-warrior-site/versions [none]
+[debug] [2026-08-14T06:00:02.234Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/kalari-warrior-site/versions {"status":"CREATED","labels":{"deployment-tool":"cli-firebase"}}
+[debug] [2026-08-14T06:00:03.520Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/kalari-warrior-site/versions 200
+[debug] [2026-08-14T06:00:03.520Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/kalari-warrior-site/versions {"name":"projects/987868067578/sites/kalari-warrior-site/versions/9c2dd9ee08efb9d6","status":"CREATED","config":{},"labels":{"deployment-tool":"cli-firebase"}}
+[info] i  hosting[kalari-warrior-site]: beginning deploy... 
+[info] i  hosting[kalari-warrior-site]: found 46 files in out 
+[debug] [2026-08-14T06:00:03.558Z] [hosting] uploading with 200 concurrency
+[debug] [2026-08-14T06:00:03.777Z] Checked if tokens are valid: true, expires at: 1786690098652
+[debug] [2026-08-14T06:00:03.778Z] Checked if tokens are valid: true, expires at: 1786690098652
+[debug] [2026-08-14T06:00:03.779Z] [hosting] hash cache [b3V0] stored for 46 files
+[debug] [2026-08-14T06:00:03.779Z] [hosting][hash queue][FINAL] {"max":213,"min":63,"avg":96.47826086956522,"active":0,"complete":46,"success":46,"errored":0,"retried":0,"total":46,"elapsed":218}
+[debug] [2026-08-14T06:00:03.779Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/987868067578/sites/kalari-warrior-site/versions/9c2dd9ee08efb9d6:populateFiles [none]
+[debug] [2026-08-14T06:00:03.779Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/987868067578/sites/kalari-warrior-site/versions/9c2dd9ee08efb9d6:populateFiles {"files":{"/window.svg":"2253803a9bd224dd3fbe414027f54ff9edbe1a38bc0980826e020165b0b35d1c","/vercel.svg":"f6d5e3a78f79382f472d99da714537458bf7616f60d251e7c98dd24977504709","/next.svg":"69fb75aede79b670cc3a774cf34561364d373632c78ed59342781868b751d105","/globe.svg":"45be2550c6161f1d10d3e58afc08d8dff018574d05f19bf2dc6aa382b8c5d6e5","/file.svg":"d4177f44c939a634e7984d267852a06c4ca557a9e49ba3c5dadabbcbf5508058","/index.txt":"f15dd092025f624192ec6bc4b906bd477c9f6193a20c82719c4e32caaf1646ee","/__next._tree.txt":"95360127debbe23184fe1be53398d5de5c6ee027ab170c0245daf5570188b571","/index.html":"d4c393c38ecb7ac8a242069f09958ea053013cf37154d8cfa47e6074b8471cf7","/_not-found.txt":"da26b1201aa316d2f6e6997866deb33d691c5b28211df76012591f2b71ed97e1","/404.html":"b20d101a82ac006395b44434cedcd96ea8564e3a86a78b7c83e0baf38f78063a","/_not-found.html":"b20d101a82ac006395b44434cedcd96ea8564e3a86a78b7c83e0baf38f78063a","/__next._full.txt":"f15dd092025f624192ec6bc4b906bd477c9f6193a20c82719c4e32caaf1646ee","/__next.__PAGE__.txt":"9caa899f6b51b82b24dde2d42e648bd1f6867bf04efb62d672a935cea56515db","/favicon.ico":"fc60fc83e5adb154c8bfdfd04af8aef9208feb3e7dc6747aeb05b9e80be7adaa","/_not-found/__next._tree.txt":"e347749879594babf71f5700f2f7bea2d83d89a5a5ded6f9d16c379bb303fd42","/_not-found/__next._not-found.__PAGE__.txt":"0b80f2009563048638141dcd833674adef5f176690f114c7ebf12c0698a4beab","/_not-found/__next._full.txt":"da26b1201aa316d2f6e6997866deb33d691c5b28211df76012591f2b71ed97e1","/_next/static/foe7uJEze11hWAmMBQnwg/_ssgManifest.js":"d8d8790f4e673a23bec506f00699bed8a258ac0e4965bb1ca8598172cfc0ec97","/_next/static/foe7uJEze11hWAmMBQnwg/_clientMiddlewareManifest.js":"2631856c85d9b699e000e7d40645259aafc1454d09f58f6ff9f9b13bfce1d552","/_next/static/foe7uJEze11hWAmMBQnwg/_buildManifest.js":"ab95fd219bf908b88ed3180a610f5ee73608eee48bdb78beeef442208865e23a","/_next/static/chunks/3gtjnkj29_fz2.js":"26d2f4c7a6c74a4d183c2694731eff4120bd4ce31b885411f99b7b8330137a2c","/_next/static/chunks/239akj2delahe.js":"e66bad280b0f18ca4fe7017f958b7655de5605044792a879989e47944889da58","/_next/static/chunks/turbopack-2h3s-ob8g-8ha.js":"45e6212096172e117a1639a71ecd6093aae45b8ca09761e83305de1968538872","/_next/static/chunks/1e3p5v9tualdf.js":"9d0f647e8bc0ec52c5ad5d890370496f71bf81b398bd77728d2b6f82c4e29ab8","/_next/static/chunks/3fntmmi971322.js":"b208f7b0f60646e3f7c790d0960238292f7e154f76dc12ba0110ad047a664ec3","/_next/static/chunks/13qdek140qvov.js":"85af3bb6f2a6517e5ca58026da1f5d56f27fb729286e8c16cb6b4a81113c1be1","/_next/static/chunks/3nrw97bwi-rf0.js":"bf2a2b2f67bba055406b47b68a6269d51bb00255e2a4cdaf2dcb5fb70fd50bc7","/_next/static/chunks/0aj3he4nww4cb.js":"9f8889ac6b19c832c91e1b7615c3eb50d3c5f55e711416b0b122246778c80f0f","/_next/static/media/favicon.2vob68tjqpejf.ico":"fc60fc83e5adb154c8bfdfd04af8aef9208feb3e7dc6747aeb05b9e80be7adaa","/_next/static/chunks/09lgyggnhjlha.js":"4b3c84ef925b6ae7a458863588447f4d845207ce6f9019e6e4f9404ee0f8dfcd","/_next/static/chunks/038o1mvk6-5ng.css":"fa227f4d4040bcde4900ea85f2ad56baf0885c2a32ef413e061c5f7a2e6b45fe","/_next/static/chunks/16pgsmctl6_ev.js":"f44a5e0875c7b6e3066bdbc0b2ea7ac1fcb4a9f434880381a37ffcc3c659436a","/_next/static/chunks/0cz1d0mv5g_q7.js":"03d999769a1d22c3d15e746105328fc87335e3d9f35515bd0e85bb578ebfb1ff","/_next/static/chunks/3ulhxff9d4enz.js":"e741cac95f8a7fcf80254ab42c2dad7a4539cd934ede7170071a8da7aa549b77","/_next/static/chunks/1q67lhrm3w-f_.js":"7efb771ca8bbfd106dd005f6572a4feb8d2b3efe7497d1256dbb4527575a26a4","/images/guru_hero.jpg":"821ed926f62783a2c236b3ede1bd4c9c00decef6da07dd66ed276743d6e7394e","/_next/static/chunks/08ttfj81-47mu.js":"d570293f9380b7c5d12afe7156c6f2aefaed4c0ece811b6626fa614db98bba75","/images/lamp.jpg":"01731d06c88d50cd639e33af13b73b4ea9efc77ae6f4990d4e7f1460690ff4fd","/images/guru.jpg":"d80db537710c51b5133d38f6fddf935dea879821e41f7f3a6d4dd4b63a7339bd","/images/weapons_otta.jpg":"3349bcb2d22f0416a9bcec0080f8bc5a87de2f643ffb25d24dd4d6b88d8ab441","/images/weapons.jpg":"3cb57cf9f4f4a25e1a24bbba2144c0dc42fdc43692386f5ab9bd3835ee7621c9","/images/hero.jpg":"158b8c2323f4e83063787ff860c0d0b956080b658d228f7c43e5f1fb2449f77a","/images/movement.jpg":"17adce1c253099ba6bc641ced883aa68d4bd1b6caafa0f71d27ff6a40460b60f","/images/weapons_urumi.jpg":"4dd7728f7559ccd610b1e73783713596689639c039861745263a5923432635d5","/images/training.jpg":"375f36915b321cd1655314909926ca6492610aa21f765f28e469667297227dbb","/images/interior.jpg":"10fef4bd40410f601f2242991416e8f9ca18f2a4052ed0bc2619cff4e509f1d3"}}
+[debug] [2026-08-14T06:00:04.725Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/987868067578/sites/kalari-warrior-site/versions/9c2dd9ee08efb9d6:populateFiles 200
+[debug] [2026-08-14T06:00:04.726Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/987868067578/sites/kalari-warrior-site/versions/9c2dd9ee08efb9d6:populateFiles {"uploadRequiredHashes":["b20d101a82ac006395b44434cedcd96ea8564e3a86a78b7c83e0baf38f78063a","da26b1201aa316d2f6e6997866deb33d691c5b28211df76012591f2b71ed97e1","d4c393c38ecb7ac8a242069f09958ea053013cf37154d8cfa47e6074b8471cf7","9caa899f6b51b82b24dde2d42e648bd1f6867bf04efb62d672a935cea56515db","0b80f2009563048638141dcd833674adef5f176690f114c7ebf12c0698a4beab","e347749879594babf71f5700f2f7bea2d83d89a5a5ded6f9d16c379bb303fd42","f44a5e0875c7b6e3066bdbc0b2ea7ac1fcb4a9f434880381a37ffcc3c659436a","95360127debbe23184fe1be53398d5de5c6ee027ab170c0245daf5570188b571","f15dd092025f624192ec6bc4b906bd477c9f6193a20c82719c4e32caaf1646ee"],"uploadUrl":"https://upload-firebasehosting.googleapis.com/upload/sites/kalari-warrior-site/versions/9c2dd9ee08efb9d6/files"}
+[debug] [2026-08-14T06:00:04.727Z] Checked if tokens are valid: true, expires at: 1786690098652
+[debug] [2026-08-14T06:00:04.727Z] Checked if tokens are valid: true, expires at: 1786690098652
+[debug] [2026-08-14T06:00:04.727Z] Checked if tokens are valid: true, expires at: 1786690098652
+[debug] [2026-08-14T06:00:04.728Z] Checked if tokens are valid: true, expires at: 1786690098652
+[debug] [2026-08-14T06:00:04.728Z] Checked if tokens are valid: true, expires at: 1786690098652
+[debug] [2026-08-14T06:00:04.728Z] Checked if tokens are valid: true, expires at: 1786690098652
+[debug] [2026-08-14T06:00:04.728Z] Checked if tokens are valid: true, expires at: 1786690098652
+[debug] [2026-08-14T06:00:04.728Z] Checked if tokens are valid: true, expires at: 1786690098652
+[debug] [2026-08-14T06:00:04.728Z] Checked if tokens are valid: true, expires at: 1786690098652
+[debug] [2026-08-14T06:00:04.728Z] Checked if tokens are valid: true, expires at: 1786690098652
+[debug] [2026-08-14T06:00:04.728Z] Checked if tokens are valid: true, expires at: 1786690098652
+[debug] [2026-08-14T06:00:04.728Z] Checked if tokens are valid: true, expires at: 1786690098652
+[debug] [2026-08-14T06:00:04.729Z] Checked if tokens are valid: true, expires at: 1786690098652
+[debug] [2026-08-14T06:00:04.729Z] Checked if tokens are valid: true, expires at: 1786690098652
+[debug] [2026-08-14T06:00:04.729Z] Checked if tokens are valid: true, expires at: 1786690098652
+[debug] [2026-08-14T06:00:04.729Z] Checked if tokens are valid: true, expires at: 1786690098652
+[debug] [2026-08-14T06:00:04.729Z] Checked if tokens are valid: true, expires at: 1786690098652
+[debug] [2026-08-14T06:00:04.729Z] Checked if tokens are valid: true, expires at: 1786690098652
+[debug] [2026-08-14T06:00:04.729Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/kalari-warrior-site/versions/9c2dd9ee08efb9d6/files/b20d101a82ac006395b44434cedcd96ea8564e3a86a78b7c83e0baf38f78063a [none]
+[debug] [2026-08-14T06:00:04.729Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/kalari-warrior-site/versions/9c2dd9ee08efb9d6/files/b20d101a82ac006395b44434cedcd96ea8564e3a86a78b7c83e0baf38f78063a [stream]
+[debug] [2026-08-14T06:00:04.730Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/kalari-warrior-site/versions/9c2dd9ee08efb9d6/files/da26b1201aa316d2f6e6997866deb33d691c5b28211df76012591f2b71ed97e1 [none]
+[debug] [2026-08-14T06:00:04.731Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/kalari-warrior-site/versions/9c2dd9ee08efb9d6/files/da26b1201aa316d2f6e6997866deb33d691c5b28211df76012591f2b71ed97e1 [stream]
+[debug] [2026-08-14T06:00:04.731Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/kalari-warrior-site/versions/9c2dd9ee08efb9d6/files/d4c393c38ecb7ac8a242069f09958ea053013cf37154d8cfa47e6074b8471cf7 [none]
+[debug] [2026-08-14T06:00:04.731Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/kalari-warrior-site/versions/9c2dd9ee08efb9d6/files/d4c393c38ecb7ac8a242069f09958ea053013cf37154d8cfa47e6074b8471cf7 [stream]
+[debug] [2026-08-14T06:00:04.732Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/kalari-warrior-site/versions/9c2dd9ee08efb9d6/files/9caa899f6b51b82b24dde2d42e648bd1f6867bf04efb62d672a935cea56515db [none]
+[debug] [2026-08-14T06:00:04.732Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/kalari-warrior-site/versions/9c2dd9ee08efb9d6/files/9caa899f6b51b82b24dde2d42e648bd1f6867bf04efb62d672a935cea56515db [stream]
+[debug] [2026-08-14T06:00:04.733Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/kalari-warrior-site/versions/9c2dd9ee08efb9d6/files/0b80f2009563048638141dcd833674adef5f176690f114c7ebf12c0698a4beab [none]
+[debug] [2026-08-14T06:00:04.733Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/kalari-warrior-site/versions/9c2dd9ee08efb9d6/files/0b80f2009563048638141dcd833674adef5f176690f114c7ebf12c0698a4beab [stream]
+[debug] [2026-08-14T06:00:04.734Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/kalari-warrior-site/versions/9c2dd9ee08efb9d6/files/e347749879594babf71f5700f2f7bea2d83d89a5a5ded6f9d16c379bb303fd42 [none]
+[debug] [2026-08-14T06:00:04.734Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/kalari-warrior-site/versions/9c2dd9ee08efb9d6/files/e347749879594babf71f5700f2f7bea2d83d89a5a5ded6f9d16c379bb303fd42 [stream]
+[debug] [2026-08-14T06:00:04.734Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/kalari-warrior-site/versions/9c2dd9ee08efb9d6/files/f44a5e0875c7b6e3066bdbc0b2ea7ac1fcb4a9f434880381a37ffcc3c659436a [none]
+[debug] [2026-08-14T06:00:04.734Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/kalari-warrior-site/versions/9c2dd9ee08efb9d6/files/f44a5e0875c7b6e3066bdbc0b2ea7ac1fcb4a9f434880381a37ffcc3c659436a [stream]
+[debug] [2026-08-14T06:00:04.735Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/kalari-warrior-site/versions/9c2dd9ee08efb9d6/files/95360127debbe23184fe1be53398d5de5c6ee027ab170c0245daf5570188b571 [none]
+[debug] [2026-08-14T06:00:04.735Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/kalari-warrior-site/versions/9c2dd9ee08efb9d6/files/95360127debbe23184fe1be53398d5de5c6ee027ab170c0245daf5570188b571 [stream]
+[debug] [2026-08-14T06:00:04.736Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/kalari-warrior-site/versions/9c2dd9ee08efb9d6/files/f15dd092025f624192ec6bc4b906bd477c9f6193a20c82719c4e32caaf1646ee [none]
+[debug] [2026-08-14T06:00:04.736Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/kalari-warrior-site/versions/9c2dd9ee08efb9d6/files/f15dd092025f624192ec6bc4b906bd477c9f6193a20c82719c4e32caaf1646ee [stream]
+[debug] [2026-08-14T06:00:04.752Z] [hosting][populate queue][FINAL] {"max":952,"min":952,"avg":952,"active":0,"complete":1,"success":1,"errored":0,"retried":0,"total":1,"elapsed":975}
+[debug] [2026-08-14T06:00:04.753Z] [hosting] uploads queued: 9
+[info] i  hosting: uploading new files [0/9] (0%) 
+[info] i  hosting: uploading new files [0/9] (0%) 
+[info] i  hosting: uploading new files [0/9] (0%) 
+[debug] [2026-08-14T06:00:11.086Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/kalari-warrior-site/versions/9c2dd9ee08efb9d6/files/b20d101a82ac006395b44434cedcd96ea8564e3a86a78b7c83e0baf38f78063a 200
+[debug] [2026-08-14T06:00:11.087Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/kalari-warrior-site/versions/9c2dd9ee08efb9d6/files/b20d101a82ac006395b44434cedcd96ea8564e3a86a78b7c83e0baf38f78063a [stream]
+[debug] [2026-08-14T06:00:11.186Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/kalari-warrior-site/versions/9c2dd9ee08efb9d6/files/da26b1201aa316d2f6e6997866deb33d691c5b28211df76012591f2b71ed97e1 200
+[debug] [2026-08-14T06:00:11.186Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/kalari-warrior-site/versions/9c2dd9ee08efb9d6/files/da26b1201aa316d2f6e6997866deb33d691c5b28211df76012591f2b71ed97e1 [stream]
+[debug] [2026-08-14T06:00:11.194Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/kalari-warrior-site/versions/9c2dd9ee08efb9d6/files/95360127debbe23184fe1be53398d5de5c6ee027ab170c0245daf5570188b571 200
+[debug] [2026-08-14T06:00:11.194Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/kalari-warrior-site/versions/9c2dd9ee08efb9d6/files/95360127debbe23184fe1be53398d5de5c6ee027ab170c0245daf5570188b571 [stream]
+[debug] [2026-08-14T06:00:11.267Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/kalari-warrior-site/versions/9c2dd9ee08efb9d6/files/f15dd092025f624192ec6bc4b906bd477c9f6193a20c82719c4e32caaf1646ee 200
+[debug] [2026-08-14T06:00:11.268Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/kalari-warrior-site/versions/9c2dd9ee08efb9d6/files/f15dd092025f624192ec6bc4b906bd477c9f6193a20c82719c4e32caaf1646ee [stream]
+[debug] [2026-08-14T06:00:11.313Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/kalari-warrior-site/versions/9c2dd9ee08efb9d6/files/9caa899f6b51b82b24dde2d42e648bd1f6867bf04efb62d672a935cea56515db 200
+[debug] [2026-08-14T06:00:11.313Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/kalari-warrior-site/versions/9c2dd9ee08efb9d6/files/9caa899f6b51b82b24dde2d42e648bd1f6867bf04efb62d672a935cea56515db [stream]
+[debug] [2026-08-14T06:00:11.352Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/kalari-warrior-site/versions/9c2dd9ee08efb9d6/files/0b80f2009563048638141dcd833674adef5f176690f114c7ebf12c0698a4beab 200
+[debug] [2026-08-14T06:00:11.353Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/kalari-warrior-site/versions/9c2dd9ee08efb9d6/files/0b80f2009563048638141dcd833674adef5f176690f114c7ebf12c0698a4beab [stream]
+[debug] [2026-08-14T06:00:11.354Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/kalari-warrior-site/versions/9c2dd9ee08efb9d6/files/e347749879594babf71f5700f2f7bea2d83d89a5a5ded6f9d16c379bb303fd42 200
+[debug] [2026-08-14T06:00:11.354Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/kalari-warrior-site/versions/9c2dd9ee08efb9d6/files/e347749879594babf71f5700f2f7bea2d83d89a5a5ded6f9d16c379bb303fd42 [stream]
+[info] i  hosting: uploading new files [7/9] (77%) 
+[debug] [2026-08-14T06:00:11.576Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/kalari-warrior-site/versions/9c2dd9ee08efb9d6/files/d4c393c38ecb7ac8a242069f09958ea053013cf37154d8cfa47e6074b8471cf7 200
+[debug] [2026-08-14T06:00:11.576Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/kalari-warrior-site/versions/9c2dd9ee08efb9d6/files/d4c393c38ecb7ac8a242069f09958ea053013cf37154d8cfa47e6074b8471cf7 [stream]
+[info] i  hosting: uploading new files [8/9] (88%) 
+[info] i  hosting: uploading new files [8/9] (88%) 
+[info] i  hosting: uploading new files [8/9] (88%) 
+[info] i  hosting: uploading new files [8/9] (88%) 
+[debug] [2026-08-14T06:00:19.880Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/kalari-warrior-site/versions/9c2dd9ee08efb9d6/files/f44a5e0875c7b6e3066bdbc0b2ea7ac1fcb4a9f434880381a37ffcc3c659436a 200
+[debug] [2026-08-14T06:00:19.881Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/kalari-warrior-site/versions/9c2dd9ee08efb9d6/files/f44a5e0875c7b6e3066bdbc0b2ea7ac1fcb4a9f434880381a37ffcc3c659436a [stream]
+[debug] [2026-08-14T06:00:19.881Z] [hosting][upload queue][FINAL] {"max":15153,"min":6361,"avg":7518,"active":0,"complete":9,"success":9,"errored":0,"retried":0,"total":9,"elapsed":15155}
+[info] i  hosting: upload complete 
+[info] ✔  hosting[kalari-warrior-site]: file upload complete 
+[debug] [2026-08-14T06:00:19.882Z] [hosting] deploy completed after 16355ms
+[debug] [2026-08-14T06:00:19.882Z] [
+  {
+    "config": {
+      "public": "out",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ],
+      "headers": [
+        {
+          "source": "**/*.@(jpg|jpeg|gif|png|svg|webp|avif)",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "public, max-age=31536000, immutable"
+            }
+          ]
+        },
+        {
+          "source": "**/*.@(js|css)",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "public, max-age=31536000, immutable"
+            }
+          ]
+        },
+        {
+          "source": "**/*.@(woff|woff2|ttf|otf)",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "public, max-age=31536000, immutable"
+            }
+          ]
+        },
+        {
+          "source": "**",
+          "headers": [
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            }
+          ]
+        }
+      ],
+      "cleanUrls": true,
+      "trailingSlash": false,
+      "site": "kalari-warrior-site"
+    },
+    "version": "projects/987868067578/sites/kalari-warrior-site/versions/9c2dd9ee08efb9d6"
+  }
+]
+[info] i  hosting[kalari-warrior-site]: finalizing version... 
+[debug] [2026-08-14T06:00:19.885Z] Checked if tokens are valid: true, expires at: 1786690098652
+[debug] [2026-08-14T06:00:19.885Z] Checked if tokens are valid: true, expires at: 1786690098652
+[debug] [2026-08-14T06:00:19.886Z] >>> [apiv2][query] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/kalari-warrior-site/versions/9c2dd9ee08efb9d6 updateMask=status%2Cconfig
+[debug] [2026-08-14T06:00:19.886Z] >>> [apiv2][body] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/kalari-warrior-site/versions/9c2dd9ee08efb9d6 {"status":"FINALIZED","config":{"rewrites":[{"glob":"**","path":"/index.html"}],"headers":[{"glob":"**/*.@(jpg|jpeg|gif|png|svg|webp|avif)","headers":{"Cache-Control":"public, max-age=31536000, immutable"}},{"glob":"**/*.@(js|css)","headers":{"Cache-Control":"public, max-age=31536000, immutable"}},{"glob":"**/*.@(woff|woff2|ttf|otf)","headers":{"Cache-Control":"public, max-age=31536000, immutable"}},{"glob":"**","headers":{"X-Frame-Options":"DENY","X-Content-Type-Options":"nosniff"}}],"cleanUrls":true,"trailingSlashBehavior":"REMOVE"}}
+[debug] [2026-08-14T06:00:25.363Z] <<< [apiv2][status] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/kalari-warrior-site/versions/9c2dd9ee08efb9d6 200
+[debug] [2026-08-14T06:00:25.363Z] <<< [apiv2][body] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/kalari-warrior-site/versions/9c2dd9ee08efb9d6 {"name":"projects/987868067578/sites/kalari-warrior-site/versions/9c2dd9ee08efb9d6","status":"FINALIZED","config":{"headers":[{"headers":{"Cache-Control":"public, max-age=31536000, immutable"},"glob":"**/*.@(jpg|jpeg|gif|png|svg|webp|avif)"},{"headers":{"Cache-Control":"public, max-age=31536000, immutable"},"glob":"**/*.@(js|css)"},{"headers":{"Cache-Control":"public, max-age=31536000, immutable"},"glob":"**/*.@(woff|woff2|ttf|otf)"},{"headers":{"X-Content-Type-Options":"nosniff","X-Frame-Options":"DENY"},"glob":"**"}],"rewrites":[{"glob":"**","path":"/index.html"}],"cleanUrls":true,"trailingSlashBehavior":"REMOVE"},"labels":{"deployment-tool":"cli-firebase"},"createTime":"2026-08-14T06:00:02.628617Z","createUser":{"email":"technologies.brix@gmail.com"},"finalizeTime":"2026-08-14T06:00:25.084400Z","finalizeUser":{"email":"technologies.brix@gmail.com"}}
+[debug] [2026-08-14T06:00:25.363Z] [hosting] finalized version for kalari-warrior-site:[object Object]
+[info] ✔  hosting[kalari-warrior-site]: version finalized 
+[info] i  hosting[kalari-warrior-site]: releasing new version... 
+[debug] [2026-08-14T06:00:25.364Z] Checked if tokens are valid: true, expires at: 1786690098652
+[debug] [2026-08-14T06:00:25.364Z] Checked if tokens are valid: true, expires at: 1786690098652
+[debug] [2026-08-14T06:00:25.365Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/kalari-warrior-site/channels/live/releases versionName=projects%2F987868067578%2Fsites%2Fkalari-warrior-site%2Fversions%2F9c2dd9ee08efb9d6
+[debug] [2026-08-14T06:00:25.365Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/kalari-warrior-site/channels/live/releases {}
+[debug] [2026-08-14T06:00:28.008Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/kalari-warrior-site/channels/live/releases 200
+[debug] [2026-08-14T06:00:28.009Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/kalari-warrior-site/channels/live/releases {"name":"projects/987868067578/sites/kalari-warrior-site/channels/live/releases/1786687227049000","version":{"name":"projects/987868067578/sites/kalari-warrior-site/versions/9c2dd9ee08efb9d6","status":"FINALIZED","config":{"headers":[{"headers":{"Cache-Control":"public, max-age=31536000, immutable"},"glob":"**/*.@(jpg|jpeg|gif|png|svg|webp|avif)"},{"headers":{"Cache-Control":"public, max-age=31536000, immutable"},"glob":"**/*.@(js|css)"},{"headers":{"Cache-Control":"public, max-age=31536000, immutable"},"glob":"**/*.@(woff|woff2|ttf|otf)"},{"headers":{"X-Frame-Options":"DENY","X-Content-Type-Options":"nosniff"},"glob":"**"}],"rewrites":[{"glob":"**","path":"/index.html"}],"cleanUrls":true,"trailingSlashBehavior":"REMOVE"},"labels":{"deployment-tool":"cli-firebase"},"createTime":"2026-08-14T06:00:02.628617Z","createUser":{"email":"technologies.brix@gmail.com","imageUrl":"https://lh3.googleusercontent.com/a/ACg8ocInv_lwhEdUoApAP-wE_Iv5c7oWlXqGM9wf2oZzxf9jLfXJ4y4"},"finalizeTime":"2026-08-14T06:00:25.084400Z","finalizeUser":{"email":"technologies.brix@gmail.com","imageUrl":"https://lh3.googleusercontent.com/a/ACg8ocInv_lwhEdUoApAP-wE_Iv5c7oWlXqGM9wf2oZzxf9jLfXJ4y4"}},"type":"DEPLOY","releaseTime":"2026-08-14T06:00:27.049Z","releaseUser":{"email":"technologies.brix@gmail.com","imageUrl":"https://lh3.googleusercontent.com/a/ACg8ocInv_lwhEdUoApAP-wE_Iv5c7oWlXqGM9wf2oZzxf9jLfXJ4y4"}}
+[debug] [2026-08-14T06:00:28.009Z] [hosting] release: {"name":"projects/987868067578/sites/kalari-warrior-site/channels/live/releases/1786687227049000","version":{"name":"projects/987868067578/sites/kalari-warrior-site/versions/9c2dd9ee08efb9d6","status":"FINALIZED","config":{"headers":[{"headers":{"Cache-Control":"public, max-age=31536000, immutable"},"glob":"**/*.@(jpg|jpeg|gif|png|svg|webp|avif)"},{"headers":{"Cache-Control":"public, max-age=31536000, immutable"},"glob":"**/*.@(js|css)"},{"headers":{"Cache-Control":"public, max-age=31536000, immutable"},"glob":"**/*.@(woff|woff2|ttf|otf)"},{"headers":{"X-Frame-Options":"DENY","X-Content-Type-Options":"nosniff"},"glob":"**"}],"rewrites":[{"glob":"**","path":"/index.html"}],"cleanUrls":true,"trailingSlashBehavior":"REMOVE"},"labels":{"deployment-tool":"cli-firebase"},"createTime":"2026-08-14T06:00:02.628617Z","createUser":{"email":"technologies.brix@gmail.com","imageUrl":"https://lh3.googleusercontent.com/a/ACg8ocInv_lwhEdUoApAP-wE_Iv5c7oWlXqGM9wf2oZzxf9jLfXJ4y4"},"finalizeTime":"2026-08-14T06:00:25.084400Z","finalizeUser":{"email":"technologies.brix@gmail.com","imageUrl":"https://lh3.googleusercontent.com/a/ACg8ocInv_lwhEdUoApAP-wE_Iv5c7oWlXqGM9wf2oZzxf9jLfXJ4y4"}},"type":"DEPLOY","releaseTime":"2026-08-14T06:00:27.049Z","releaseUser":{"email":"technologies.brix@gmail.com","imageUrl":"https://lh3.googleusercontent.com/a/ACg8ocInv_lwhEdUoApAP-wE_Iv5c7oWlXqGM9wf2oZzxf9jLfXJ4y4"}}
+[info] ✔  hosting[kalari-warrior-site]: release complete 
+[info] 
+[info] ✔  Deploy complete! 
+[info] 
+[info] Project Console: https://console.firebase.google.com/project/kalari-warrior-site/overview
+[info] Hosting URL: https://kalari-warrior-site.web.app
+[debug] [2026-08-14T06:00:38.022Z] Error: Timed out.
+    at Timeout._onTimeout (/home/mullainathan/.npm/_npx/ba4f1959e38407b5/node_modules/firebase-tools/lib/utils.js:296:49)
+    at listOnTimeout (node:internal/timers:605:17)
+    at process.processTimers (node:internal/timers:541:7)
+[error] 
+[error] Error: An unexpected error has occurred.

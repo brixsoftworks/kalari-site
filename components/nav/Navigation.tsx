@@ -45,17 +45,17 @@ export default function Navigation() {
           <span
             style={{
               fontFamily: "var(--font-display)",
-              fontSize: "1.5rem",
+              fontSize: "1.35rem",
               fontWeight: 300,
-              letterSpacing: "0.3em",
+              letterSpacing: "0.22em",
               color: "var(--c-ivory)",
               lineHeight: 1,
             }}
           >
-            KALARI
+            KADATHANAD
           </span>
-          <span className="text-meta" style={{ letterSpacing: "0.15em", fontSize: "0.5rem" }}>
-            KERALA · INDIA
+          <span className="text-meta animate-pulse-slow" style={{ letterSpacing: "0.15em", fontSize: "0.55rem", color: "var(--c-gold)" }}>
+            KPCGM KALARISANGHAM
           </span>
         </button>
 

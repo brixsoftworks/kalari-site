@@ -39,9 +39,9 @@ export default function Location() {
 
             <div className="reveal-up" style={{ transitionDelay: "0.15s" }}>
               <p className="text-body" style={{ color: "var(--c-ash)", opacity: 0.8 }}>
-                We are located in the heart of Kozhikode (Calicut), the ancient
-                trading city of Northern Kerala — birthplace of the Vadakkan
-                Kalaripayattu tradition.
+                We are located in the historic town of Vadakara, Kozhikode district,
+                Northern Kerala — the heart of the legendary Kadathanad region famous for
+                its traditional Kalaripayattu heritage.
               </p>
             </div>
 
@@ -55,8 +55,8 @@ export default function Location() {
                   label: "ADDRESS",
                   content: (
                     <>
-                      Near Thali Temple, Kozhikode<br />
-                      Kerala, India — 673 001
+                      Puthuppanam, Vadakara, Kozhikode<br />
+                      Kerala, India — 673 105
                     </>
                   ),
                 },
@@ -77,25 +77,25 @@ export default function Location() {
                   content: (
                     <>
                       <a
-                        href="mailto:enter@kalari.in"
+                        href="mailto:contact@kpcgmkalari.org"
                         style={{
                           color: "var(--c-gold)",
                           textDecoration: "none",
                           cursor: "none",
                         }}
                       >
-                        enter@kalari.in
+                        contact@kpcgmkalari.org
                       </a>
                       <br />
                       <a
-                        href="tel:+914952230000"
+                        href="tel:+914962528135"
                         style={{
                           color: "var(--c-parchment)",
                           textDecoration: "none",
                           cursor: "none",
                         }}
                       >
-                        +91 495 223 0000
+                        +91 496 252 8135
                       </a>
                     </>
                   ),
@@ -127,7 +127,7 @@ export default function Location() {
             {/* Directions button */}
             <div className="reveal-up" style={{ transitionDelay: "0.35s" }}>
               <a
-                href="https://maps.google.com/?q=Thali+Temple+Kozhikode+Kerala"
+                href="https://maps.google.com/?q=Kadathanad+KPCGM+Kalari+Sangham+Puthuppanam+Vadakara+Kerala"
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
@@ -175,7 +175,7 @@ export default function Location() {
               {/* Embedded map iframe */}
               <iframe
                 title="Kalari location map"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3912.755878940734!2d75.7769!3d11.2535!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba65ef9a4780d05%3A0x8d8cc6e5e5a3a8c2!2sThali%20Temple%2C%20Kozhikode!5e0!3m2!1sen!2sin!4v1700000000000"
+                src="https://maps.google.com/maps?q=Kadathanad%20KPCGM%20Kalari%20Sangham%20Puthuppanam%20Vadakara&t=&z=14&ie=UTF8&iwloc=&output=embed"
                 width="100%"
                 height="100%"
                 style={{
@@ -207,10 +207,10 @@ export default function Location() {
                 aria-hidden="true"
               >
                 <span className="text-meta block" style={{ color: "var(--c-gold)" }}>
-                  KALARI
+                  KADATHANAD KPCGM
                 </span>
                 <span className="text-meta" style={{ color: "var(--c-smoke)" }}>
-                  KOZHIKODE · KERALA
+                  VADAKARA · KERALA
                 </span>
               </div>
             </div>

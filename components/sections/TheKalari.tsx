@@ -93,7 +93,7 @@ export default function TheKalari() {
           aria-hidden="true"
         >
           <span className="text-meta" style={{ color: "var(--c-ash)" }}>
-            KOZHIKODE &nbsp;·&nbsp; NORTHERN KERALA
+            VADAKARA &nbsp;·&nbsp; NORTHERN KERALA
           </span>
         </div>
       </div>

@@ -124,25 +124,25 @@ export default function Footer() {
               <span
                 style={{
                   fontFamily: "var(--font-display)",
-                  fontSize: "1.25rem",
+                  fontSize: "1.1rem",
                   fontWeight: 300,
-                  letterSpacing: "0.35em",
+                  letterSpacing: "0.22em",
                   color: "var(--c-ivory)",
                 }}
               >
-                KALARI
+                KADATHANAD
               </span>
-              <span className="text-meta mt-1" style={{ color: "var(--c-smoke)" }}>
-                KERALA · INDIA
+              <span className="text-meta mt-1" style={{ color: "var(--c-gold)", fontSize: "0.6rem" }}>
+                KPCGM KALARISANGHAM
               </span>
             </div>
 
             {/* Social links */}
             <nav className="flex items-center gap-8" aria-label="Social media links">
               {[
-                { label: "INSTAGRAM", href: "https://instagram.com" },
-                { label: "YOUTUBE", href: "https://youtube.com" },
-                { label: "WHATSAPP", href: "https://wa.me/914952230000" },
+                { label: "INSTAGRAM", href: "https://www.instagram.com/martialarts_school_" },
+                { label: "YOUTUBE", href: "https://www.youtube.com/@kpcgmkalariofficial3899" },
+                { label: "WHATSAPP", href: "https://wa.me/914962528135" },
               ].map((s) => (
                 <a
                   key={s.label}
@@ -170,7 +170,7 @@ export default function Footer() {
 
             {/* Copyright */}
             <span className="text-meta" style={{ color: "var(--c-smoke)" }}>
-              © 2026 KALARI
+              © 2026 KADATHANAD KPCGM
             </span>
           </div>
         </div>

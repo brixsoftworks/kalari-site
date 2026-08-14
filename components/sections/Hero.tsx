@@ -40,17 +40,19 @@ export default function Hero() {
         },
       });
 
-      // Zoom Gurukkal foreground layer at a different rate for parallax separation
-      gsap.to(layer3Ref.current, {
-        scale: isMobile ? 1.22 : 1.48,
-        ease: "none",
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top top",
-          end: "bottom top",
-          scrub: true,
-        },
-      });
+      if (!isMobile) {
+        // Zoom cutout faster on desktop for 3D parallax
+        gsap.to(layer3Ref.current, {
+          scale: 1.45,
+          ease: "none",
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top top",
+            end: "bottom top",
+            scrub: true,
+          },
+        });
+      }
     }, containerRef);
 
     return () => ctx.revert();
@@ -96,16 +98,14 @@ export default function Hero() {
         bgRef.current.style.transform = `perspective(1200px) rotateX(${totalRotX}deg) rotateY(${totalRotY}deg) translate3d(${cameraX}px, ${cameraY}px, 0)`;
       }
       if (layer1Ref.current) {
-        // Leaping warrior shifts deeper
         layer1Ref.current.style.transform = `translate3d(${currentX * -15}px, ${currentY * -15}px, -150px)`;
       }
       if (layer2Ref.current) {
         layer2Ref.current.style.transform = `translate3d(${currentX * 18}px, ${currentY * 18}px, -30px)`;
       }
       if (layer3Ref.current) {
-        // Gurukkal shifts in the foreground to create depth pop
-        const guruZ = 120 + Math.min(120, scrollY * 0.22);
-        layer3Ref.current.style.transform = `translate3d(${currentX * 32}px, ${currentY * 32}px, ${guruZ}px)`;
+        const warriorZ = 100 + Math.min(100, scrollY * 0.15);
+        layer3Ref.current.style.transform = `translate3d(${currentX * 28}px, ${currentY * 28}px, ${warriorZ}px)`;
       }
 
       rafId = requestAnimationFrame(updatePosition);
@@ -142,14 +142,14 @@ export default function Hero() {
         }}
         aria-hidden="true"
       >
-        {/* Layer 1: Main background image (Leaping warrior on the right) */}
+        {/* Layer 1: Main background image (Leaping warrior) */}
         <div
           ref={layer1Ref}
           className="absolute inset-0 hero-bg-layer"
           style={{
             backgroundImage: "url('/images/movement.jpg')",
             backgroundSize: "cover",
-            backgroundPosition: "right 30%",
+            backgroundPosition: "center 30%",
             opacity: loaded ? 1 : 0,
             transition: "opacity 2.4s cubic-bezier(0.16, 1, 0.3, 1)",
             transformStyle: "preserve-3d",
@@ -159,26 +159,25 @@ export default function Hero() {
         {/* Layer 2: Warm firelight glow */}
         <div
           ref={layer2Ref}
-          className="absolute inset-0 pointer-events-none opacity-30 mix-blend-color-dodge"
+          className="absolute inset-0 pointer-events-none opacity-40 mix-blend-color-dodge hidden md:block"
           style={{
-            background: "radial-gradient(circle at 40% 50%, rgba(201, 76, 46, 0.4) 0%, transparent 60%)",
+            background: "radial-gradient(circle at 50% 50%, rgba(201, 76, 46, 0.5) 0%, transparent 60%)",
             transformStyle: "preserve-3d",
           }}
         />
 
-        {/* Layer 3: Gurukkal foreground overlay (Merged diagonally on left/bottom-left) */}
+        {/* Layer 3: Dynamic Warrior Cutout (Desktop only) */}
         <div
           ref={layer3Ref}
-          className="absolute inset-0 hero-guru-layer"
+          className="absolute inset-0 hidden md:block"
           style={{
-            backgroundImage: "url('/images/guru_hero.jpg')",
+            backgroundImage: "url('/images/movement.jpg')",
             backgroundSize: "cover",
-            backgroundPosition: "left 25%",
+            backgroundPosition: "center 30%",
             opacity: loaded ? 1 : 0,
+            clipPath: "polygon(22% 10%, 78% 10%, 85% 90%, 15% 90%)",
             transition: "opacity 2.4s cubic-bezier(0.16, 1, 0.3, 1)",
             transformStyle: "preserve-3d",
-            WebkitMaskImage: "linear-gradient(135deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.92) 32%, rgba(0,0,0,0) 68%)",
-            maskImage: "linear-gradient(135deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.92) 32%, rgba(0,0,0,0) 68%)",
           }}
         />
 
@@ -214,7 +213,7 @@ export default function Hero() {
           }}
         >
           <span className="text-meta">
-            GURUKKAL &nbsp;·&nbsp; KERALA, INDIA
+            KADATHANAD KPCGM &nbsp;·&nbsp; KERALA, INDIA
           </span>
         </div>
 
@@ -226,7 +225,6 @@ export default function Hero() {
               color: "var(--c-ivory)",
               transform: loaded ? "translateY(0)" : "translateY(100%)",
               transition: "transform 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.6s",
-              textShadow: "0 4px 12px rgba(10,9,8,0.5)",
             }}
           >
             THE ART OF
@@ -247,7 +245,7 @@ export default function Hero() {
         >
           <p
             className="text-body"
-            style={{ color: "var(--c-parchment)", opacity: 0.8, fontSize: "1.05rem", textShadow: "0 2px 8px rgba(10,9,8,0.6)" }}
+            style={{ color: "var(--c-parchment)", opacity: 0.8, fontSize: "1.05rem" }}
           >
             AN ANCIENT MARTIAL TRADITION FROM THE LAND OF KERALA
           </p>
@@ -265,7 +263,7 @@ export default function Hero() {
         }}
       >
         <span className="text-meta block" style={{ color: "var(--c-smoke)" }}>
-          KERALA &nbsp;·&nbsp; INDIA
+          PUTHUPPANAM &nbsp;·&nbsp; VADAKARA
         </span>
         <span className="text-meta block mt-1" style={{ color: "var(--c-smoke)" }}>
           TRADITIONAL MARTIAL ART
@@ -354,13 +352,15 @@ export default function Hero() {
             width: 100%;
             height: 100%;
           }
-          .hero-guru-layer {
-            background-position: 40% center !important;
-            WebkitMaskImage: linear-gradient(to bottom, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 90%) !important;
-            maskImage: linear-gradient(to bottom, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 90%) !important;
-          }
           .hero-bg-layer {
-            background-position: right center !important;
+            filter: none !important;
+            opacity: 1 !important;
+          }
+        }
+        @media (min-width: 768px) {
+          .hero-bg-layer {
+            filter: blur(6px) brightness(0.6) saturate(0.8) !important;
+            opacity: 0.35 !important;
           }
         }
       `}</style>
