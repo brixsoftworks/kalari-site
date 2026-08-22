@@ -1,0 +1,16 @@
+# Block likely secrets, then lint staged files
+# Note: Firebase *web* API keys are public-by-design identifiers. The only
+# place they may appear is the client config below — anything else matching
+# these patterns blocks the commit.
+SECRET_EXCLUDES='^lib/firebase\.ts$'
+if git diff --cached -U0 \
+  | grep -E "^\+\+\+ b/" | sed 's|^\+\+\+ b/||' \
+  | grep -qvE "$SECRET_EXCLUDES" || true; then
+  :
+fi
+if git diff --cached -U0 -- . ':(exclude)lib/firebase.ts' | grep -iE "(sk-(live|test|or)-[a-zA-Z0-9]|AIzaSy[A-Za-z0-9_-]{20}|AQ\.Ab8RN6|xox[bap]-|BEGIN (RSA |EC )?PRIVATE KEY)" >/dev/null; then
+  echo "COMMIT BLOCKED: possible API key/secret in staged changes."
+  echo "If this is a false positive, commit with --no-verify and tell the team."
+  exit 1
+fi
+npx lint-staged
