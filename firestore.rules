@@ -1,0 +1,53 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isAdmin() {
+      return request.auth != null
+        && request.auth.token.email != null
+        && request.auth.token.email in [
+          "mullainathan95@gmail.com",
+          "aromalsangeerth@gmail.com"
+        ];
+    }
+
+    match /enquiries/{docId} {
+      // CREATE (public, validated): a new enquiry always starts as unpaid.
+      // The client can never claim payment — paymentStatus MUST be "pending"
+      // and status MUST be "new". Amount is capped to sane bounds; admins
+      // correct it during manual UPI verification if needed.
+      allow create: if request.resource.data.keys().hasAll(["name", "email", "phone", "age", "program", "status", "paymentStatus"])
+        && request.resource.data.name is string
+        && request.resource.data.name.size() > 0
+        && request.resource.data.name.size() < 200
+        && request.resource.data.email is string
+        && request.resource.data.email.matches("^[^@]+@[^@]+\\.[^@]+$")
+        && request.resource.data.phone is string
+        && request.resource.data.phone.matches("^[0-9+\\-\\s]{7,15}$")
+        && request.resource.data.age is number
+        && request.resource.data.age >= 3
+        && request.resource.data.age <= 100
+        && request.resource.data.program is string
+        && request.resource.data.program.size() > 0
+        && request.resource.data.program.size() < 200
+        && (!('amount' in request.resource.data)
+            || (request.resource.data.amount is number
+                && request.resource.data.amount >= 0
+                && request.resource.data.amount <= 1000000))
+        && request.resource.data.status == "new"
+        // SECURITY: clients may never self-declare a completed payment.
+        && request.resource.data.paymentStatus == "pending";
+
+      // UPDATE / READ / DELETE: authenticated admins only. Payment is marked
+      // "completed" exclusively through the admin PWA after out-of-band UPI
+      // verification (or via Admin SDK / Cloud Function in future).
+      allow read, update, delete: if isAdmin();
+    }
+
+    match /programs/{docId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+  }
+}

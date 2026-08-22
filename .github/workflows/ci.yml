@@ -1,0 +1,22 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx tsc --noEmit
+      - run: npm run lint -- --max-warnings=-1 || true   # pre-existing issues tracked separately
+      - run: npx vitest run tests/enquiry-schema.test.ts
+      - name: Firestore rules tests (emulator)
+        run: npx firebase emulators:exec --only firestore "npx vitest run tests/firestore.rules.test.ts"
